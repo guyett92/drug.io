@@ -21,7 +21,8 @@ const drugSchema = new Schema({
     },
     family: {
         type: String
-    }
+    },
+    image: String
 }, { timestamps: true});
 
 module.exports = mongoose.model('Drug', drugSchema);

@@ -1,2 +1,20 @@
 <%- include('../partials/header') %>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% drugs.forEach(function(d) { %>
+        <tr>
+            <td><%= d.name %></td>
+            <td><%= d.price %></td>
+            <td><a href="/drugs/<%= d._id %>">Details</a></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
 <%- include('../partials/footer') %>

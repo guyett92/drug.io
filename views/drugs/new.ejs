@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+
+<form id="new-form" action="/drugs" method="POST">
+  <label>Name:</label>
+  <input type="text" name="name">
+  <label>Price:</label>
+  <input type="text" name="price">
+  <label>Generic:</label>
+  <input type="radio" name="generic" value="Yes" id="true">
+  <input type="radio" name="generic" value="No" id="false">
+  <label>Dosage (mg):</label>
+  <input type="text" name="dosage">
+  <label>Family</label>
+  <select name="family">
+      <option value="FIXME">FIXME: Add drugs from API or list</option>
+      <option value="Morphine">Morphine</option>
+  </select>
+  <label>FIXME: IMAGE</label>
+  <input type="text" name="image">
+  <input type="submit" value="Add Drug">
+</form>
+
+<%- include('../partials/footer') %>
