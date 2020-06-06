@@ -11,14 +11,18 @@
         <title><%= title %></title>
     </head>
     <body>
-        <!-- <nav>
-            <div class="">
-                <ul id="" class="">
-                    <li class="<%= title === 'Mongoose Flights' ? 'active' : '' %>"><a href="/">Home</a></li>
-                    <li class="<%= title === 'Flights Index' ? 'active' : '' %>"><a href="/flights/">View Flights</a></li>
-                    <li class="<%= title === 'Add a Flight' ? 'active' : '' %>"><a href="/flights/new">Add Flight</a></li>
-                </ul>
+         <nav class="navbar">
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item <%= title === 'Drugs Review' ? 'active' : '' %>" href="/">Home</a>
+                    <a class="navbar-item <%= title === 'Drugs List' ? 'active' : '' %>" href="/drugs">Drugs List</a>
+                    <% if(user) { %>
+                        <a class="navbar-item" href="/logout"><span class="icon"><i class="fas fa-sign-out-alt"></i></span>Log Out</a>
+                    <% } else { %>
+                        <a href="auth/google" class="navbar-item"><span class="icon"><i class="fas fa-sign-in-alt"></i></span>Login with Google</a>
+                    <% } %>
+                </div>
             </div>
-        </nav> !-->
+        </nav>
         <main>
             <h1 class="center-align"><%= title %></h1>

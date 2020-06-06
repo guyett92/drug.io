@@ -1,4 +1,5 @@
 const Drug = require('../models/drug');
+const User = require('../models/user');
 
 module.exports = {
     index,
@@ -23,6 +24,13 @@ function newDrug(req, res) {
 // Get all the drugs
 function index(req, res) {
     Drug.find({}, function(err, drugs) {
-        res.render('drugs/index', {title: 'Drugs List', drugs});
+        User.find({}, function(err, users) {
+            res.render('drugs/index', {
+                drugs,
+                users,
+                user: req.user,
+                title: 'Drugs List', 
+            });
+        });
     });
 }
