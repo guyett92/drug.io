@@ -3,6 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const passport = require('passport');
 const methodOverride = require('method-override');
+const favicon = require('serve-favicon');
+const path = require('path');
 const port = 3000;
 
 // Routes
@@ -26,6 +28,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }));
+app.use(favicon(path.join(__dirname, 'public/img', 'pills.ico')));
 
 
 // Session middleware
