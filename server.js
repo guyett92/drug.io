@@ -1,11 +1,12 @@
-// Load express
+// Load express and middleware
 const express = require('express');
+const path = require('path');
 const morgan = require('morgan');
 const passport = require('passport');
-const methodOverride = require('method-override');
+const methodOverride = require('method-override');  
 const favicon = require('serve-favicon');
-const path = require('path');
-const port = 3000;
+
+const port = process.env.PORT || 3000;
 
 // Routes
 const indexRouter = require('./routes/index');
@@ -15,14 +16,14 @@ const drugsRouter = require('./routes/drugs');
 const app = express();
 
 // Connect to DB, and configs
+require('dotenv').config(); // Has to be before database config
 require('./config/database');
-require('dotenv').config();
 require('./config/passport');
 
 // Setup views
 app.set('view engine', 'ejs');
 
-// Mount Middleware
+// Mount middleware
 app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.json());
