@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel='stylesheet' href="/css/style.css" />
+        <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <script defer src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -27,7 +27,17 @@
                     <a class="navbar-item <%= title === 'Drugs Review' ? 'active' : '' %>" href="/">Home</a>
                     <a class="navbar-item <%= title === 'Drugs List' ? 'active' : '' %>" href="/drugs">Drugs List</a>
                     <a class="navbar-item <%= title === 'Add New Drug' ? 'active' : '' %>" href="/drugs/new">Add Drug</a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">More</a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="#">About</a> <!-- FIXME: ADD PAGES HERE-->
+                            <a class="navbar-item" href="#">Contact</a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item">Report an Issue</a>
+                        </div>
+                    </div>
                 </div>
+                <hr class="navbar-divider">
             </div>
             <div class="navbar-end">
                 <% if(user) { %>
@@ -37,5 +47,4 @@
                 <% } %>
             </div>
         </nav>
-        <main>
-            <h1 class="center-align"><%= title %></h1>
+        <main class="pre-footer">
