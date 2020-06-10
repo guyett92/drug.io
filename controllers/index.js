@@ -5,7 +5,6 @@ module.exports = {
     index
 };
 
-//Either {title: 'Drugs Review', user: req.user} OR {user: req.user}, {title: 'Drugs Review'}
 function index(req, res) {
     User.find({}, function(err, users) {
         res.render('index', {

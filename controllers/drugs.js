@@ -1,5 +1,6 @@
 const Drug = require('../models/drug');
 const User = require('../models/user');
+const request = require('request');
 
 module.exports = {
     index,
@@ -8,17 +9,31 @@ module.exports = {
 };
 
 function create(req, res) {
-    Drug.create(req.body, function(err, newDrug) {
+    for (let key in req.body) {
+        if (req.body[key] === '') delete req.body[key];
+    }
+    // Convert generic to a boolean
+    req.body.generic = req.body.generic.value === "Yes";
+    const drug = new Drug(req.body);
+    drug.save(function(err) {
         if(err) {
-            return res.render('drugs/new', {title: 'Add a Drug'});
-        }
-        res.redirect('/drugs'); //FIXME: BRING TO NEW DRUG PAGE
+            console.log(err);
+            console.log(drug);
+            return res.redirect('/drugs/new'); // FIX ME: ADD TOASTS
+         } 
+        console.log(drug);
+        res.redirect(`/drugs`); // FIX ME: ADD SHOW PAGE and go here
     });
 }
 
-//Render the new page FIXME: ADD IMAGE SOURCE & DRUG FAMILIES
 function newDrug(req, res) {
-    res.render('drugs/new', {title: 'Add a Drug'});
+    User.find({}, function(err, users) {
+        res.render('drugs/new', {
+            users,
+            user: req.user,
+            title: 'Add New Drug'
+        });
+    });
 }
 
 // Get all the drugs
