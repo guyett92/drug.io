@@ -9,7 +9,7 @@ function index(req, res) {
     User.find({}, function(err, users) {
         res.render('index', {
             users,
-            user: req.user, // Doesn't find this
+            user: req.user,
             title: 'Drugs Review'}
         );
     });

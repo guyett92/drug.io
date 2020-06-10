@@ -11,7 +11,11 @@ const userSchema = new Schema({
     email: String,
     avatarURL: String,
     //reviews: [reviewSchema],
-    googleId: String
+    googleId: String,
+    liked: {
+        type: Array,
+        default: []
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

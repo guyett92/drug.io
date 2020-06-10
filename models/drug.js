@@ -1,6 +1,28 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const db = mongoose.connection;
+
+const reviewSchema = new Schema({
+    content: {
+        type: String,
+        required: true
+    },
+    sideEffect: Boolean,
+    rating: {
+        required: true,
+        type: Number
+    },
+    liked: Boolean, // FIXME: make sure all this is correct
+    date: {
+        type: Date,
+        default: function() {
+            return new Date(Date.now()).toLocaleString();
+        }
+    },
+    postedBy: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    }
+}, {timestamps: true});
 
 const drugSchema = new Schema({
     name: {
@@ -22,7 +44,8 @@ const drugSchema = new Schema({
     family: {
         type: String
     },
-    image: String
+    image: String,
+    reviews: [ reviewSchema ]
 }, { timestamps: true});
 
 module.exports = mongoose.model('Drug', drugSchema);

@@ -13,7 +13,7 @@
         <% drugs.forEach(function(d) { %>
         <tr>
             <td><%= d.name %></td>
-            <td><%= d.price %></td>
+            <td>$<%= d.price %></td>
             <td><a href="/drugs/<%= d._id %>">Details</a></td>
         </tr>
         <% }); %>
