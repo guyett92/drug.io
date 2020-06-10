@@ -5,8 +5,22 @@ const request = require('request');
 module.exports = {
     index,
     new: newDrug,
-    create
+    create,
+    show
 };
+
+function show(req, res) {
+    User.find({}, function(err, users) {
+        Drug.findById(req.params.id).exec(function(err, drug) {
+            res.render('drugs/show', {
+                users,
+                drug,
+                user: req.user,
+                title: 'Show Drug'
+            });
+        });
+    });
+}
 
 function create(req, res) {
     for (let key in req.body) {
@@ -17,11 +31,8 @@ function create(req, res) {
     const drug = new Drug(req.body);
     drug.save(function(err) {
         if(err) {
-            console.log(err);
-            console.log(drug);
             return res.redirect('/drugs/new'); // FIX ME: ADD TOASTS
-         } 
-        console.log(drug);
+         }
         res.redirect(`/drugs`); // FIX ME: ADD SHOW PAGE and go here
     });
 }

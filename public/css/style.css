@@ -1,3 +1,8 @@
 .active {
     background-color: #d6d6d6;
 }
+
+.logo {
+    width: 28;
+    height: 28;
+}

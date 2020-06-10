@@ -7,21 +7,34 @@
         <link rel='stylesheet' href="/css/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-        <script defer src="/js/script.js" ></script>
+        <script defer src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script defer src="/js/script.js"></script>
         <title><%= title %></title>
     </head>
     <body>
          <nav class="navbar">
-            <div class="navbar-menu">
+             <div class="navbar-brand">
+                 <a class="navbar-item" href="/"><img class="logo" src="/img/pills.svg" alt="Logo"></a>
+                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMobile">
+                    <!-- Remove from accessibility tree -->
+                     <span aria-hidden="true"></span>
+                     <span aria-hidden="true"></span>
+                     <span aria-hidden="true"></span>
+                 </a>
+             </div>
+            <div id="navbarMobile" class="navbar-menu">
                 <div class="navbar-start">
                     <a class="navbar-item <%= title === 'Drugs Review' ? 'active' : '' %>" href="/">Home</a>
                     <a class="navbar-item <%= title === 'Drugs List' ? 'active' : '' %>" href="/drugs">Drugs List</a>
-                    <% if(user) { %>
-                        <a class="navbar-item" href="/logout"><span class="icon"><i class="fas fa-sign-out-alt"></i></span>Log Out</a>
-                    <% } else { %>
-                        <a href="auth/google" class="navbar-item"><span class="icon"><i class="fas fa-sign-in-alt"></i></span>Login with Google</a>
-                    <% } %>
+                    <a class="navbar-item <%= title === 'Add New Drug' ? 'active' : '' %>" href="/drugs/new">Add Drug</a>
                 </div>
+            </div>
+            <div class="navbar-end">
+                <% if(user) { %>
+                    <a class="navbar-item" href="/logout"><span class="icon"><i class="fas fa-sign-out-alt"></i></span>Log Out</a>
+                <% } else { %>
+                    <a href="auth/google" class="navbar-item"><span class="icon"><i class="fas fa-sign-in-alt"></i></span>Login with Google</a>
+                <% } %>
             </div>
         </nav>
         <main>
