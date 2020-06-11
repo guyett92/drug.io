@@ -8,12 +8,6 @@ const reviewSchema = new Schema({
     },
     sideEffect: Boolean,
     liked: Boolean,
-    date: {
-        type: Date,
-        default: function() {
-            return new Date(Date.now()).toLocaleString();
-        }
-    },
     postedBy: {
         type: Schema.Types.ObjectId, 
         ref: 'User'

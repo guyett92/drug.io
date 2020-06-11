@@ -1,6 +1,5 @@
 const Drug = require('../models/drug');
 const User = require('../models/user');
-const request = require('request');
 
 module.exports = {
     index,
