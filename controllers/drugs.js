@@ -47,16 +47,63 @@ function newDrug(req, res) {
     });
 }
 
-// Get all the drugs
-function index(req, res) {
-    Drug.find({}, function(err, drugs) {
-        User.find({}, function(err, users) {
-            res.render('drugs/index', {
-                drugs,
-                users,
-                user: req.user,
-                title: 'Drugs List', 
-            });
+
+//Async-await find an API
+// async function getDrugData(userParam) {
+//     const response = await fetch(`LINK${userParam}`);
+//     const data = await response.json();
+//     console.log(data);
+// }
+
+//Async await instead
+async function index(req, res) {
+    try {
+        const drugs = await Drug.find({});
+        const users = await User.find({});
+        res.render('drugs/index', {
+                    drugs,
+                    users,
+                    user: req.user,
+                    title: 'Drugs List', 
         });
-    });
+    } catch (error) {
+        console.log(error);
+        res.redirect('/'); //FIXME: Add error handler here, can test error by making User above to Users
+    }
 }
+
+
+// Get all the drugs
+// function index(req, res) {
+//     Drug.find({}, function(err, drugs) {
+//         User.find({}, function(err, users) {
+//             res.render('drugs/index', {
+//                 drugs,
+//                 users,
+//                 user: req.user,
+//                 title: 'Drugs List', 
+//             });
+//         });
+//     });
+// }
+
+// Promises instead of callback functions
+// function index(req, res) {
+//     Drug.find({}).then(drugs => {
+//         User.find({}).then(users => {
+//             res.render('drugs/index', {
+//                 drugs,
+//                 users,
+//                 user: req.user,
+//                 title: 'Drugs List', 
+//             })
+//         }).catch(err => {
+//             res.redirect('error'); //FIXME: Create error template
+//         });
+//     });
+// }
+
+// Promises example FIXME: Add API
+// function getDrugData(userParam) { //amount `omdb.com/api?=${amount}...
+//     fetch(`LINK${userParam}`).then(response => response.json()).then(data => console.log(data));    
+// }

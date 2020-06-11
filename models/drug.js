@@ -7,11 +7,7 @@ const reviewSchema = new Schema({
         required: true
     },
     sideEffect: Boolean,
-    rating: {
-        required: true,
-        type: Number
-    },
-    liked: Boolean, // FIXME: make sure all this is correct
+    liked: Boolean,
     date: {
         type: Date,
         default: function() {

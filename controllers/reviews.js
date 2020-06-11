@@ -11,8 +11,9 @@ function create(req, res) {
         Drug.findById(req.params.id, function(err, drug) {
             //Point to the user who made the review -- MIGHT BE WRONG
             drug.reviews.postedBy = req.user;
-            //Convert liked 'checkbox' to a boolean
+            //Convert liked and side effects checkbox to booleans
             req.body.liked = !!req.body.liked;
+            req.body.sideEffects = !!req.body.sideEffects;
             //If it is liked, add it to user's array of liked drugs
             if (req.body.liked) {
                 user.liked.push(drug.name);
@@ -23,6 +24,7 @@ function create(req, res) {
                 if (req.body[key] === '') delete req.body[key];
               }
             drug.reviews.push(req.body);
+            if(err) {console.log(err)};
             drug.save(function(err) {
                 console.log(err);
                 console.log(user);
