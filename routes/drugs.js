@@ -7,6 +7,7 @@ router.get('/', drugsCtrl.index);
 router.get('/new', drugsCtrl.new);
 router.post('/', drugsCtrl.create);
 router.get('/:id', drugsCtrl.show);
+router.post('/:id', drugsCtrl.addFavorite);
 
 router.get('/auth/google', passport.authenticate(
     'google',
@@ -16,7 +17,7 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
     'google',
     {   //Should return user to current page or home
-        successReturnToOrRedirect: '/',
+        successReturnToOrRedirect: '/drugs',
         failureRedirect: '/'
     }
 ));

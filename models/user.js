@@ -10,7 +10,6 @@ const userSchema = new Schema({
     name: String,
     email: String,
     avatarURL: String,
-    //reviews: [reviewSchema],
     googleId: String,
     liked: {
         type: Array,

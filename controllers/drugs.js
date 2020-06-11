@@ -5,8 +5,28 @@ module.exports = {
     index,
     new: newDrug,
     create,
-    show
+    show,
+    addFavorite
 };
+
+function addFavorite(req, res) {
+    console.log(req.params.id) // USER's REQ PARAM ID iS THEIR OBJECT ID 
+    Drug.findById(req.params.id, function(err, drug) {
+        User.findById(req.user._id, function(err, user) {
+            user.liked.forEach(function(likes) {
+                if (likes.equals(drug.name)) {
+                    console.log('found');
+                    return res.redirect('/drugs');
+                }
+                user.liked.push(drug.name);
+                user.save(function(err) {
+                    console.log('not found');
+                    res.redirect(`/drugs/${drug.id}`);
+                })
+            })
+        })
+    })
+}
 
 function show(req, res) {
     User.find({}, function(err, users) {
@@ -32,7 +52,7 @@ function create(req, res) {
         if(err) {
             return res.redirect('/drugs/new'); // FIX ME: ADD TOASTS
          }
-        res.redirect(`/drugs`); // FIX ME: ADD SHOW PAGE and go here
+        res.redirect(`/drugs/${drug._id}`);
     });
 }
 

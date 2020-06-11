@@ -28,10 +28,17 @@
                         </div>
                         <footer class="card-footer">
                             <div class="card-footer-item has-text-left" >
-                                <a href="#" class="has-text-centered liked-container">
-                                    <i class="far fa-heart btn btn-default"></i>
-                                    <h1>Add to Favorites</h1> <!-- FIX ME: ADD FAVORITE FUNCTIONALITY-->
-                                </a>
+                                <% if(user) { %>
+                                    <form class="has-text-centered" action="/drugs/<%= user._id %>" method="POST">
+                                    <button id="fave" type="submit"><a href="#" class="liked-container">
+                                        <i class="far fa-heart btn btn-default"></i>
+                                        <h1>Add to Favorites</h1> <!-- FIX ME: ADD FAVORITE FUNCTIONALITY-->
+                                    </a>
+                                </button>
+                                    </form>
+                                <% } else { %>
+                                    <p>Liked FIXME: X AMOUNT OF TIMES</p>
+                                <% } %>
                             </div>
                         </footer>
                     </div>
@@ -89,13 +96,23 @@
                 <article class="media">
                     <figure class="media-left">
                         <p class="image is-64x64">
-                            <img src="<%= user.findById(review.postedBy).avatarURL %>">
+                            <%users.forEach(function(user) { %>
+                                <% if(user._id.equals(review.postedBy)) { %>
+                                    <img src="<%= user.avatarURL %>">
+                                <% } %>
+                            <% });  %>
                         </p>
                     </figure>
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <strong><%= user.findById(review.postedBy).name %></strong>
+                                <strong>
+                                    <%users.forEach(function(user) { %>
+                                        <% if(user._id.equals(review.postedBy)) { %>
+                                            <%= user.name %>
+                                        <% } %>
+                                    <% });  %>
+                                </strong>
                                 <br>
                                 <%= review.content %>
                             </p>
@@ -108,11 +125,13 @@
                             </div>
                         </nav>
                     </div>
-                    <% if(user._id.equals(user && user.id)) { %>
-                    <form action="/reviews/<%= index %>?_method=DELETE" method="POST">
-                        <button class="delete" type="submit"></button>
-                    </form> 
-                <% } %>
+                    <% if(user) { %>
+                        <% if(user._id.equals(review.postedBy)) { %>
+                            <form action="/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                <button class="delete" type="submit"></button>
+                            </form> 
+                        <% } %>
+                    <% } %>
                 </article>
             <% }); %>
         </div>
