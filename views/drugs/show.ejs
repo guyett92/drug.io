@@ -89,13 +89,13 @@
                 <article class="media">
                     <figure class="media-left">
                         <p class="image is-64x64">
-                            <img src="<%= user.findById(review._id).avatarURL %>">
+                            <img src="<%= user.findById(review.postedBy).avatarURL %>">
                         </p>
                     </figure>
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <strong><%= user.findById(review._id).name %></strong>
+                                <strong><%= user.findById(review.postedBy).name %></strong>
                                 <br>
                                 <%= review.content %>
                             </p>
