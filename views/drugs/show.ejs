@@ -1,86 +1,88 @@
 <%- include('../partials/header') %>
-
-<div class="container">
-    <div class="columns">
-    <div class="column">
-        <div class="card is-horizontal">
-            <div class="card-image">
-                <figure class="image is-square">
-                    <% if(drug.image) { %>
-                        <img src="<%= drug.image %>" alt="Image of <%= drug.name %>">
+<h1 class="title is-1 has-text-centered drug-title"><%= drug.name %></h1>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="card is-horizontal">
+                    <div class="card-image">
+                        <figure class="image is-square">
+                            <% if(drug.image) { %>
+                                <img src="<%= drug.image %>" alt="Image of <%= drug.name %>">
+                            <% } else { %>
+                                <i class="fas fa-capsules" id="alt-drug"></i>
+                            <% } %>
+                        </figure>
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <div class="media-content">
+                                <p class="title is-4"><%= drug.name %></p>
+                                <p class="subtitle is-6"><%= drug.family %> - Common Dosage: <%= drug.dosage %>mg</p>
+                            </div>
+                            <div class="content"> <!-- FIXME: Can add facts about each of the families -->
+                                A member of the <%= drug.family.toLowerCase() %> family, <%= drug.name %> is commonly priced at $<%= drug.price%>. 
+                                FIXME: ADD COUNT users have reported having adverse side effects with this drug. If you would like to
+                                know more, please <a href="#">click here. FIXME: ADD INFO LINKS OR NOT IDK</a>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <div class="card-footer-item has-text-left" >
+                                <a href="#" class="has-text-centered liked-container">
+                                    <i class="far fa-heart btn btn-default"></i>
+                                    <h1>Add to Favorites</h1> <!-- FIX ME: ADD FAVORITE FUNCTIONALITY-->
+                                </a>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <h2 class="title is-2 has-text-centered">Reviews</h2>
+    <div class="container">
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-64x64">
+                    <% if(user) { %>
+                        <img src="<%= user.avatarURL %>">
                     <% } else { %>
-                        <i class="fas fa-capsules" id="alt-drug"></i>
+                        <i class="fas fa-user anonymous"></i>
                     <% } %>
-                </figure>
-            </div>
-            <div class="card-stacked">
-                <div class="card-content">
-                    <div class="media-content">
-                        <p class="title is-4"><%= drug.name %></p>
-                        <p class="subtitle is-6"><%= drug.family %> - Common Dosage: <%= drug.dosage %>mg</p>
+                </p>
+            </figure>
+            <div class="media-content">
+                <form action="/drugs/<%= drug._id %>/reviews" method="POST">
+                <div class="field">
+                    <p class="control">
+                        <textarea class="textarea" name="content" placeholder="Add a review..."></textarea>
+                    </p>
+                </div>
+                <nav class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <button type="submit" class="button is-info" value="Submit">Submit</button>
+                        </div>
                     </div>
-                    <div class="content"> <!-- FIXME: Can add facts about each of the families -->
-                        A member of the <%= drug.family.toLowerCase() %> family, <%= drug.name %> is commonly priced at $<%= drug.price%>. 
-                        FIXME: ADD COUNT users have reported having adverse side effects with this drug. If you would like to
-                        know more, please <a href="#">click here. FIXME: ADD INFO LINKS</a>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <label class="checkbox">
+                                <input name="liked" type="checkbox"> Add to favorites <!-- Add functionality to do this-->
+                            </label>
+                        </div>
+                        <div class="level-item">
+                            <label class="checkbox">
+                                <input name="sideEffect" type="checkbox"> Side Effects
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <footer class="card-footer">
-                    <div class="card-footer-item has-text-left" >
-                        <a href="#" class="has-text-centered liked-container">
-                            <i class="far fa-heart btn btn-default"></i> <!-- FIX ME: ADD FILLED IN HEART FOR LIKED DRUGS CONDITIONAL FORMATTING-->
-                            <h1>Add to Favorites</h1> <!-- FIX ME: ADD FAVORITE FUNCTIONALITY-->
-                        </a>
-                    </div>
-                </footer>
+                </nav>
+                </form>
             </div>
-        </div>
+        </article>
     </div>
-    </div>
-</div>
-
-<h2>Reviews</h2>
-<h2>Add Review</h2>
-<div class="container">
-<article class="media">
-    <figure class="media-left">
-        <p class="image is-64x64">
-            <% if(user) { %>
-                <img src="<%= user.avatarURL %>">
-            <% } else { %>
-                <i class="fas fa-user anonymous"></i>
-            <% } %>
-        </p>
-    </figure>
-    <div class="media-content">
-        <form action="/drugs/<%= drug._id %>/reviews" method="POST">
-        <div class="field">
-            <p class="control">
-                <textarea class="textarea" name="content" placeholder="Add a review..."></textarea>
-            </p>
-        </div>
-        <nav class="level">
-            <div class="level-left">
-                <div class="level-item">
-                    <button type="submit" class="button is-info" value="Submit">Submit</button>
-                </div>
-            </div>
-            <div class="level-right">
-                <div class="level-item">
-                    <label class="checkbox">
-                        <input name="liked" type="checkbox"> Add to favorites <!-- Add functionality to do this-->
-                    </label>
-                </div>
-                <div class="level-item">
-                    <label class="checkbox">
-                        <input name="sideEffect" type="checkbox"> Side Effects
-                    </label>
-                </div>
-            </div>
-        </nav>
-        </form>
-    </div>
-</article>
-</div>
+</section>
 
 <%- include('../partials/footer') %>
