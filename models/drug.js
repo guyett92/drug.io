@@ -11,6 +11,10 @@ const reviewSchema = new Schema({
     postedBy: {
         type: Schema.Types.ObjectId, 
         ref: 'User'
+    },
+    likedCount: {
+        type: Number,
+        default: 0
     }
 }, {timestamps: true});
 

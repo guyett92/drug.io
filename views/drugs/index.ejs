@@ -1,22 +1,71 @@
 <%- include('../partials/header') %>
-<h1 class="center-align"><%= title %></h1>
-<a href="drugs/new"><button>Add A Drug</button></a>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% drugs.forEach(function(d) { %>
-        <tr>
-            <td><%= d.name %></td>
-            <td>$<%= d.price %></td>
-            <td><a href="/drugs/<%= d._id %>">Details</a></td>
-        </tr>
-        <% }); %>
-    </tbody>
-</table>
+<section class="hero is-primary is-bold is-light">
+    <div class="hero-body">
+        <div class="container is-fluid">
+            <h1 class="title"><%= title %></h1>
+            <h2 class="subtitle">The Current List of Drugs</h2>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical">
+            <div class="tile">
+                <div class="tile is-parent is-vertical">
+            <article class="tile is-child notification has-background-white">
+                <div class="columns is-centered">
+                    <div class="column is-narrow">
+    <table class="table is-hoverable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Family</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Family</th>
+                <th>Details</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <% drugs.forEach(function(d) { %>
+            <tr>
+                <td><%= d.name %></td>
+                <td>$<%= d.price %></td>
+                <td><%= d.family %></td>
+                <td><a class="button is-info" href="/drugs/<%= d._id %>">Details</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    </div>
+</div>
+    </article>
+    </div>
+    </div>
+</div>
+
+        <div class="tile is-parent is-8">
+            <article class="tile is-child notification is-black">
+                <div class="content">
+                    <p class="title">A Shared Space</p>
+                    <p class="subtitle">Click on details for more info</p>
+                    <div class="content">
+                        <p>Each drug has more details and the ability to leave reviews, label side effects, and add to favorites by clicking on the details button.
+                            Take advantage of the platform in order to share and learn more about what to expect when choosing starting a new medicine or communicating 
+                            with your doctor. A shared collection of information makes it easier to identify what can be expected. Everyone has a different experience and 
+                            a story to tell. Use this platform to share that story.
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
 <%- include('../partials/footer') %>

@@ -11,6 +11,19 @@ body {
   font-size: 1em;
 }
 
+#reviews {
+  margin-top: 0 !important;
+  padding-top:0 !important;
+}
+
+#posts {
+  margin-bottom: 1rem !important;
+}
+
+.login-review {
+  margin-bottom: 1rem !important;
+}
+
 .pre-footer {
     flex: 1;
 }

@@ -1,5 +1,7 @@
 /*----- constants -----*/
 
+const { MongooseDocument } = require("mongoose");
+
 /*----- app's state (variables) -----*/
 let count = 0;
 
@@ -11,12 +13,6 @@ $('.navbar-burger').on('click', classToggle);
 // When a user favorites a drug
 $('.liked-container').on('click', likedToggle);
 
-function classToggle(e) {
-    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-    $('.navbar-burger').toggleClass('is-active');
-    $('.navbar-menu').toggleClass('is-active');
-};
-
 /*----- functions -----*/
 // Add a class to toggle the heart on click
 function likedToggle(e) {
@@ -27,3 +23,13 @@ function likedToggle(e) {
     }
     count += 1;
 };
+
+function classToggle(e) {
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    $('.navbar-burger').toggleClass('is-active');
+    $('.navbar-menu').toggleClass('is-active');
+};
+
+function timestamp(time) {
+    return moment(time).format("DD-MM-YYYY")
+}
