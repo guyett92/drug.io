@@ -1,12 +1,20 @@
 <%- include('../partials/header') %>
-<section class="hero hs is-dark">
+<!-- Function for determining if a character is a vowel -->
+<% function isVowel(letter) { %>
+   <% return ['a', 'e', 'i', 'o', 'u', 'y'].indexOf(letter.toLowerCase()) !== -1 %>
+<% } %> 
+<section class="hero is-dark is-bold">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
                 <%= drug.name %>
             </h1>
             <h2 class="subtitle">
-                A(n) <%= drug.family.toLowerCase() %>
+                <% if (isVowel(drug.family[0])) { %>
+                    An <%= drug.family.toLowerCase() %>
+                <% } else { %>
+                    A <%= drug.family.toLowerCase() %>
+                <% } %>
             </h2>
         </div>
     </div>
@@ -21,7 +29,7 @@
                             <% if(drug.image) { %>
                                 <img src="<%= drug.image %>" alt="Image of <%= drug.name %>">
                             <% } else { %>
-                                <i class="fas fa-capsules" id="alt-drug"></i>
+                                <i class="fas fa-capsules" id="alt-drug" aria-hidden="true"></i>
                             <% } %>
                         </figure>
                     </div>
@@ -29,7 +37,14 @@
                         <div class="card-content">
                             <div class="content">
                                 <div class="media-content">
-                                    <p class="title is-4"><%= drug.name %></p>
+                                    <p class="title is-4">
+                                        <%= drug.name %> - 
+                                        <% if(drug.generic === true) { %>
+                                            <span>Generic</span>
+                                        <% } else { %>
+                                            <span>Brand Name</span>
+                                        <% } %>
+                                    </p>
                                     <p class="subtitle is-6"><%= drug.family %> - Common Dosage: <%= drug.dosage %>mg
                                         <% if (drug.reviews.length) { %>
                                             <% let count = 0; %>
@@ -39,12 +54,12 @@
                                                 <% } %>
                                             <% }); %>
                                             <% if(count === 0) { %>
-                                                - <span class="icon has-text-success" data-tooltip="No side effects reported by users"><i class="fas fa-check-square"></i></span>No Side Effects Reported
+                                                - <span class="icon has-text-success" data-tooltip="No side effects reported by users"><i class="fas fa-check-square" aria-hidden="true"></i></span>No Side Effects Reported
                                             <% } else { %>
-                                                - <span class="icon has-text-danger" data-tooltip="Adverse side effects reported by individuals"><i class="fas fa-exclamation-triangle"></i></span>Side Effects Reported: <%= count %>
+                                                - <span class="icon has-text-danger" data-tooltip="Adverse side effects reported by individuals"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i></span>Side Effects Reported: <%= count %>
                                             <% } %>
                                         <% } else { %>
-                                            - <span class="icon has-text-success" data-tooltip="No side effects reported by users"><i class="fas fa-check-square"></i></span>No Side Effects Reported
+                                            - <span class="icon has-text-success" data-tooltip="No side effects reported by users"><i class="fas fa-check-square" aria-hidden="true"></i></span>No Side Effects Reported
                                         <% } %>
                                     </p>
                                 </div>
@@ -55,37 +70,50 @@
                                 LOREM IPSUM INFO HERE ABOUT THE DRUG PULLED FROM AN API AND INJECTED HERE
                             </div>
                                 <% if(user) { %>
-                                    <div class="liked-container">
-                                    <% let count = 0; %>
-                                    <% drug.reviews.forEach(function(review, idx) { %>
-                                        <% if(review.liked) { %>
-                                            <% count += 1; %>
-                                        <% } %>
-                                    <% }); %>
-                                    <p class=""><%= count %> people have favorited this drug.</p>
+                                <div class="liked-container">
+                                    <% if(drug.likedCount === 1) { %>
+                                        <p class=""><%= drug.likedCount %> person has favorited this drug.</p>
+                                    <% } else { %>
+                                        <p class=""><%= drug.likedCount %> people have favorited this drug.</p>
+                                    <% } %>
                                 </div>
                                 <% } %>
                         </div>
                         <footer class="card-footer">
                             <div class="card-footer-item has-text-left" >
+                                <% let alreadyFavorited = false; %>
                                 <% if(user) { %>
-                                    <form class="has-text-centered" action="/drugs/<%= user._id %>" method="POST">
-                                    <button id="fave" type="submit"><a href="#" class="liked-container">
-                                        <i class="far fa-heart btn btn-default"></i>
-                                        <h1>Add to Favorites</h1> <!-- FIX ME: ADD FAVORITE FUNCTIONALITY-->
-                                    </a>
-                                </button>
-                                    </form>
-                                <% } else { %>
-                                        <% let count = 0; %>
-                                        <% if (drug.reviews.length) { %>
-                                            <% drug.reviews.forEach(function(review, idx) { %>
-                                                <% if(review.liked) { %>
-                                                    <% count += 1; %>
-                                                <% } %>
-                                            <% }); %>
+                                    <% user.liked.forEach(function(like, idx) { %>
+                                        <% if(like === drug.name) { %>
+                                            <% alreadyFavorited = true; %>
                                         <% } %>
-                                        <%= count %> people have favorited this drug.
+                                    <% }); %>
+                                <% } %>
+                                <% if(user && !alreadyFavorited) { %>
+                                    <form class="has-text-centered" action="/drugs/<%= drug._id %>" method="POST">
+                                        <button id="fave" type="submit">
+                                            <a href="#">
+                                                <i class="far fa-heart btn btn-default" aria-hidden="true"></i>
+                                                <h1 id="counter">Add to Favorites</h1>
+                                            </a>
+                                        </button>
+                                    </form>
+                                <% } else if(!user) { %>
+                                    <span class="icon has-text-info"><i class="fas fa-thumbs-up"></i></span> 
+                                    <% if(drug.likedCount === 1) { %>
+                                        <%= drug.likedCount %> person has favorited this drug.
+                                    <% } else { %>
+                                        <%= drug.likedCount %> people have favorited this drug.
+                                    <% } %>
+                                <% } else { %>
+                                    <form class="has-text-centered" action="/drugs/<%= drug._id %>?_method=PUT" method="POST">
+                                        <button id="fave" type="submit">
+                                            <a href="#" id="unfavorite">
+                                                <i class="fas fa-heart btn btn-default" aria-hidden="true"></i>
+                                                <h1 id="counter">Remove from Favorites</h1>
+                                            </a>
+                                        </button>
+                                    </form>
                                 <% } %>
                             </div>
                         </footer>
@@ -98,7 +126,15 @@
 <hr>
 <section id="reviews" class="section">
     <h2 class="title is-2 has-text-centered">Reviews</h2>
+    <% let alreadyReviewed = false; %>
     <% if(user) { %>
+        <% drug.reviews.forEach(function(review, idx) { %>
+            <% if(user._id.equals(review.postedBy)) { %>
+                <% alreadyReviewed = true; %>
+            <% } %>
+        <% }); %>
+    <% } %>
+    <% if(user && alreadyReviewed != true) { %>
         <div class="container" id="posts">
             <article class="media">
                 <figure class="media-left">
@@ -106,7 +142,7 @@
                         <% if(user) { %>
                             <img src="<%= user.avatarURL %>">
                         <% } else { %>
-                            <i class="fas fa-user anonymous"></i>
+                            <i class="fas fa-user anonymous" aria-hidden="true"></i>
                         <% } %>
                     </p>
                 </figure>
@@ -126,12 +162,7 @@
                         <div class="level-right">
                             <div class="level-item">
                                 <label class="checkbox">
-                                    <input name="liked" type="checkbox"> Add to favorites <!-- Add functionality to do this-->
-                                </label>
-                            </div>
-                            <div class="level-item">
-                                <label class="checkbox">
-                                    <input name="sideEffect" type="checkbox"> Side Effects
+                                    <input name="sideEffect" type="checkbox"> <strong class="is-warning">Side Effects?</strong>
                                 </label>
                             </div>
                         </div>
@@ -140,14 +171,20 @@
                 </div>
             </article>
         </div>
-    <% } else { %>
+    <% } else if (!user) { %>
         <div class="container login-review">
             <div class="notification is-info is-light">
                 <p>Please login to add a review.</p>
             </div>
         </div>
+    <% } else { %>
+        <div class="container login-review">
+            <div class="notification is-info is-light">
+                <p>You have already added a review. Delete the review below to post another.</p>
+            </div>
+        </div>
     <% } %>
-    <% if(drug.reviews.length) { %>
+    <% if(drug.reviews.content) { %>
         <div class="container">
             <% drug.reviews.forEach(function(review, idx) { %>
                 <div class="box">
@@ -176,7 +213,7 @@
                         <nav class="level is-mobile">
                             <div class="level-left">
                                 <a class="level-item">
-                                    <span id="liked-comment" class="icon is-small"><i class="far fa-heart"></i></span>
+                                    <span id="liked-comment" class="icon is-small"><i class="far fa-heart" aria-hidden="true"></i></span>
                                 </a>
                             </div>
                         </nav>
@@ -198,7 +235,7 @@
                 <h5 class="title is-5 has-text-centered">No reviews yet. Add one!</h5>
             </div>
         </div>
-    <% } %>
+        <% } %>
 </section>
 
 <%- include('../partials/footer') %>

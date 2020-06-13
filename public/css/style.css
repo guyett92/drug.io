@@ -4,11 +4,23 @@ body {
     flex-direction: column;
 }
 
+footer {
+  margin-top: 6rem;
+}
+
 #fave {
   background: none !important;
   border: none;
   padding: 0 !important;
   font-size: 1em;
+}
+
+#unfavorite {
+  color: #241F1F;
+}
+
+#unfavorite:hover {
+  color: #3298DC;
 }
 
 #reviews {
@@ -35,6 +47,10 @@ body {
 .logo {
     width: 28;
     height: 28;
+}
+
+.field-spacer {
+  margin-right: 1rem;
 }
 
 .anonymous {

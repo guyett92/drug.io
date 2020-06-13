@@ -7,14 +7,9 @@ const reviewSchema = new Schema({
         required: true
     },
     sideEffect: Boolean,
-    liked: Boolean,
     postedBy: {
         type: Schema.Types.ObjectId, 
         ref: 'User'
-    },
-    likedCount: {
-        type: Number,
-        default: 0
     }
 }, {timestamps: true});
 
@@ -37,6 +32,10 @@ const drugSchema = new Schema({
     },
     family: {
         type: String
+    },
+    likedCount: {
+        type: Number,
+        default: 0
     },
     image: String,
     reviews: [ reviewSchema ]

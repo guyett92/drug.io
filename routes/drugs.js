@@ -7,7 +7,9 @@ router.get('/', drugsCtrl.index);
 router.get('/new', drugsCtrl.new);
 router.post('/', drugsCtrl.create);
 router.get('/:id', drugsCtrl.show);
-router.post('/:id', drugsCtrl.addFavorite);
+router.post('/:id', drugsCtrl.addLike);
+router.put('/:id', drugsCtrl.removeLike);
+
 
 router.get('/auth/google', passport.authenticate(
     'google',

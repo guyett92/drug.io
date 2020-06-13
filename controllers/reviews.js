@@ -26,23 +26,11 @@ async function create(req, res) {
         const drug = await Drug.findById(req.params.id);
         // Point to the user who made the review
         req.body.postedBy = req.user._id; 
-        // Convert liked and side effects checkbox to booleans
-        req.body.liked = !!req.body.liked;
+        // Convert  side effects checkbox to boolean
         req.body.sideEffect = !!req.body.sideEffect;
-        if (req.body.liked) { 
-            let checkDrug = false;
-            for (let i = 0; i < req.user.liked.length; i++) {
-                if (req.user.liked[i].toLowerCase() === drug.name ) {
-                    checkDrug = true;
-                }
-            }
-            if (checkDrug === false) {
-                req.user.liked.push(drug.name);
-                req.user.save(function(err) {
+        req.user.save(function(err) {
                     console.log(err);
-                })
-            }
-        }
+        })
         //Remove blank fields
         for (let key in req.body) {
             if (req.body[key] === '') delete req.body[key];

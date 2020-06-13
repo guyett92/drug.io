@@ -6,25 +6,52 @@ module.exports = {
     new: newDrug,
     create,
     show,
-    addFavorite
+    addLike,
+    removeLike
 };
 
-function addFavorite(req, res) {
-    console.log(req.params.id) // USER's REQ PARAM ID iS THEIR OBJECT ID 
+function removeLike(req, res) {
     Drug.findById(req.params.id, function(err, drug) {
-        User.findById(req.user._id, function(err, user) {
-            user.liked.forEach(function(likes) {
-                if (likes.equals(drug.name)) {
-                    console.log('found');
-                    return res.redirect('/drugs');
-                }
-                user.liked.push(drug.name);
-                user.save(function(err) {
-                    console.log('not found');
-                    res.redirect(`/drugs/${drug.id}`);
-                })
+        for(let i = 0; i < req.user.liked.length; i++) {
+            if(req.user.liked[i] === drug.name) {
+                req.user.liked.splice(i, 1);
+            }
+        }
+        drug.likedCount -= 1;
+        drug.save(function(err) {
+            if(err) console.log(err);
+            req.user.save(function(err) {
+                if(err) console.log(err);
+                res.redirect(`/drugs/${drug._id}`);
             })
         })
+    })
+}
+
+function addLike(req, res) {
+    Drug.findById(req.params.id, function(err, drug) {
+        let alreadyFaved = false;
+        for(let i = 0; i < req.user.liked.length; i++) {
+            if(req.user.liked[i] === drug.name) {
+                alreadyFaved = true;
+                console.log('faved');
+            }
+        }
+        if(alreadyFaved) {
+            console.log('exiting');
+            return res.redirect(`/drugs/${drug._id}`);
+        }
+        drug.likedCount += 1;
+        req.user.liked.push(drug.name);
+        req.user.save(function(err) {
+            if(err) console.log(err);
+            drug.save(function(err) {
+                if(err) console.log(error);
+                console.log('not faved');
+                res.redirect(`/drugs/${drug._id}`);
+            })
+        })
+
     })
 }
 
