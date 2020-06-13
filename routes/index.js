@@ -13,14 +13,15 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
     'google',
     {   //Should return user to current page or home
-        successReturnToOrRedirect: '/',
-        failureRedirect: '/'
+        successRedirect: 'back',
+        failureRedirect: 'back',
+        failureFlash: true
     }
 ));
 
 router.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('back');
 })
 
 module.exports = router;

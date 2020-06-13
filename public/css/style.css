@@ -15,12 +15,8 @@ footer {
   font-size: 1em;
 }
 
-#unfavorite {
-  color: #241F1F;
-}
-
-#unfavorite:hover {
-  color: #3298DC;
+#liked-comment:hover {
+  color: black !important;
 }
 
 #reviews {

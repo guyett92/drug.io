@@ -9,7 +9,7 @@ function index(req, res) {
         res.render('index', {
             users,
             user: req.user,
-            title: 'Drugs Review'}
+            title: 'Drug.io | Home'}
         );
     });
 }

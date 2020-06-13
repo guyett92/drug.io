@@ -6,7 +6,15 @@ const reviewSchema = new Schema({
         type: String,
         required: true
     },
-    sideEffect: Boolean,
+    sideEffect: {
+        type: Boolean,
+        default: false
+    },
+    likes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        default: []
+    }],
     postedBy: {
         type: Schema.Types.ObjectId, 
         ref: 'User'

@@ -1,5 +1,7 @@
 const Drug = require('../models/drug');
 const User = require('../models/user');
+const moment = require('moment');
+
 
 module.exports = {
     index,
@@ -34,11 +36,9 @@ function addLike(req, res) {
         for(let i = 0; i < req.user.liked.length; i++) {
             if(req.user.liked[i] === drug.name) {
                 alreadyFaved = true;
-                console.log('faved');
             }
         }
         if(alreadyFaved) {
-            console.log('exiting');
             return res.redirect(`/drugs/${drug._id}`);
         }
         drug.likedCount += 1;
@@ -47,7 +47,6 @@ function addLike(req, res) {
             if(err) console.log(err);
             drug.save(function(err) {
                 if(err) console.log(error);
-                console.log('not faved');
                 res.redirect(`/drugs/${drug._id}`);
             })
         })
@@ -62,7 +61,8 @@ function show(req, res) {
                 users,
                 drug,
                 user: req.user,
-                title: 'Show Drug'
+                title: 'Drug.io | View',
+                moment
             });
         });
     });
@@ -88,7 +88,7 @@ function newDrug(req, res) {
         res.render('drugs/new', {
             users,
             user: req.user,
-            title: 'Add New Drug'
+            title: 'Drug.io | Add a Drug'
         });
     });
 }
@@ -110,7 +110,7 @@ async function index(req, res) {
                     drugs,
                     users,
                     user: req.user,
-                    title: 'Drugs List', 
+                    title: 'Drug.io | View All', 
         });
     } catch (error) {
         console.log(error);

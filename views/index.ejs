@@ -1,4 +1,69 @@
 <%- include('partials/header') %>
-<h1 class="center-align"><%= title %></h1>
-<p>Testing this page's functionality</p>
+<section class="hero is-light is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+            Drug.io
+        </h1>
+        <h2 class="subtitle">
+          A drugs review portal
+        </h2>
+      </div>
+    </div>
+  </section>
+<h1 class="has-text-centered"></h1>
+<section class="section">
+    <div class="container">
+        <div class="tile is-ancestor">
+            <div class="tile is-vertical">
+                <div class="tile">
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification is-info">
+                            <p class="title">Welcome</p>
+                            <p class="subtitle">A collaborative space</p>
+                            <p>Share information about your experience with others!</p>
+                            <br>
+                        <figure class="image is-4by3">
+                            <img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="is-rounded" alt="Lots of drugs">
+                        </figure>
+                        </article>
+                    </div>
+                    <div class="tile is-parent has-text-right">
+                        <article class="tile is-child notification is-dark">
+                            <p class="title">Transparency</p>
+                            <p class="subtitle">Learn More</p>
+                            <p>
+                                Transparency is something that is becoming the standard nowadays. With websites that allow for reviews and discussions surrounding various products, there
+                                is no space to share experiences with different drugs. Does your doctor have a recommendation for you? Take the time to read through experiences of others
+                                to determine if it is the best fit!
+                            </p>
+                            <br>
+                            <p>
+                                Want to learn more about using the website or how it works? Click on the button below to see how it was made and what future plans are!
+                            </p>
+                            <br>
+                            <p class="has-text-centered"><a class="button is-light" href="/learn">Learn More</a></p>
+
+                        </article>
+                    </div>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification is-danger">
+                        <p class="title">Stay Safe</p>
+                        <p class="subtitle">Discover real examples</p>
+                        <div class="content">
+                            <p>
+                                Read through what others have experienced to learn more about what could possibly happen to you. Each experience is subject
+                                to that individual and every experience may be different. This app does not substitute advice from your doctor nor should it
+                                be used to research drug information. It is simply used to share information between people about their experiences.
+                            </p>
+                            <p>If are having a medical emergency please dial 911.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 <%- include('partials/footer') %>

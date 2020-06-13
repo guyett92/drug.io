@@ -1,7 +1,5 @@
 /*----- constants -----*/
 
-const { MongooseDocument } = require("mongoose");
-
 /*----- app's state (variables) -----*/
 
 /*----- cached element references -----*/

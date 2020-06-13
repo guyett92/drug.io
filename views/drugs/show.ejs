@@ -93,7 +93,7 @@
                                     <form class="has-text-centered" action="/drugs/<%= drug._id %>" method="POST">
                                         <button id="fave" type="submit">
                                             <a href="#">
-                                                <i class="far fa-heart btn btn-default" aria-hidden="true"></i>
+                                                <span class="has-text-danger"><i class="far fa-heart btn btn-default" aria-hidden="true"></i></span>
                                                 <h1 id="counter">Add to Favorites</h1>
                                             </a>
                                         </button>
@@ -108,8 +108,8 @@
                                 <% } else { %>
                                     <form class="has-text-centered" action="/drugs/<%= drug._id %>?_method=PUT" method="POST">
                                         <button id="fave" type="submit">
-                                            <a href="#" id="unfavorite">
-                                                <i class="fas fa-heart btn btn-default" aria-hidden="true"></i>
+                                            <a href="#">
+                                                <span class="has-text-danger"><i class="fas fa-heart btn btn-default" aria-hidden="true"></i></span>
                                                 <h1 id="counter">Remove from Favorites</h1>
                                             </a>
                                         </button>
@@ -184,7 +184,7 @@
             </div>
         </div>
     <% } %>
-    <% if(drug.reviews.content) { %>
+    <% if(drug.reviews.length >= 1) { %>
         <div class="container">
             <% drug.reviews.forEach(function(review, idx) { %>
                 <div class="box">
@@ -203,7 +203,7 @@
                             <p>
                                 <%users.forEach(function(user) { %>
                                     <% if(user._id.equals(review.postedBy)) { %>
-                                        <strong><%= user.name %></strong> - <%= review.createdAt.toLocaleString() %>
+                                        <strong><%= user.name %></strong> - <%= moment(review.createdAt).fromNow() %>
                                     <% } %>
                                 <% });  %>
                                 <br>
@@ -213,7 +213,34 @@
                         <nav class="level is-mobile">
                             <div class="level-left">
                                 <a class="level-item">
-                                    <span id="liked-comment" class="icon is-small"><i class="far fa-heart" aria-hidden="true"></i></span>
+                                    <% if(user) { %>
+                                        <% let isLiked = false; %>
+                                        <% for(let i = 0; i < review.likes.length; i++) { %>
+                                            <% if(review.likes[i].equals(user._id)) { %>
+                                                <% isLiked = true %>
+                                            <% } %>
+                                        <% } %>
+                                        <% if(!isLiked) { %>
+                                            <form class="has-text-centered" action="/reviews/<%= review._id %>" method="POST">
+                                                <button id="fave" type="submit">
+                                                    <a href="#">
+                                                        <span id="liked-comment" class="icon is-small has-text-info"><i class="far fa-heart btn btn-default" aria-hidden="true"></i></span>
+                                                    </a>
+                                                </button>
+                                            </form>
+                                        <% } else { %>
+                                            <form class="has-text-centered" action="/reviews/<%= review._id %>?_method=PUT" method="POST">
+                                                <button id="fave" type="submit">
+                                                    <a href="#">
+                                                        <span id="liked-comment" class="icon is-small has-text-info"><i class="fas fa-heart btn btn-default" aria-hidden="true"></i></span>
+                                                    </a>
+                                                </button>
+                                            </form>
+                                        <% } %>
+                                    <% } %>
+                                    <small>
+                                        <p> &nbsp; · <%= review.likes.length %></p>
+                                    </small>
                                 </a>
                             </div>
                         </nav>
