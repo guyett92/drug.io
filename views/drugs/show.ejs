@@ -228,6 +228,7 @@
                                                     </a>
                                                 </button>
                                             </form>
+                                            &nbsp; · &nbsp;
                                         <% } else { %>
                                             <form class="has-text-centered" action="/reviews/<%= review._id %>?_method=PUT" method="POST">
                                                 <button id="fave" type="submit">
@@ -236,12 +237,13 @@
                                                     </a>
                                                 </button>
                                             </form>
+                                            &nbsp; · &nbsp;
                                         <% } %>
                                     <% } %>
-                                    <small>
-                                        <p> &nbsp; · <%= review.likes.length %></p>
-                                    </small>
                                 </a>
+                                <small>
+                                    <p><%= review.likes.length %></p>
+                                </small>
                             </div>
                         </nav>
                     </div>
@@ -257,7 +259,7 @@
             <% }); %>
         </div>
     <% } else { %>
-        <div class="container ">
+        <div class="container">
             <div class="notification is-dark">
                 <h5 class="title is-5 has-text-centered">No reviews yet. Add one!</h5>
             </div>

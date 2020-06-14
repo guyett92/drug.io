@@ -45,6 +45,10 @@ const drugSchema = new Schema({
         type: Number,
         default: 0
     },
+    ingredients: {
+        type: Array,
+        default: []
+    },
     image: String,
     reviews: [ reviewSchema ]
 }, { timestamps: true});
