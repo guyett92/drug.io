@@ -24,16 +24,16 @@
                 <div class="field">
                   <label class="label">Name</label>
                   <p class="control has-icons-left is-expanded">
-                    <input class="input" type="text" name="name" placeholder="Tylenol">
+                    <input class="input" type="text" name="name" placeholder="Tylenol" required autofocus>
                     <span class="icon is-small is-left">
                       <i class="fas fa-capsules"></i>
                     </span>
                   </p>
                 </div>
                 <div class="field">
-                  <label class="label">Price</label>
+                  <label class="label">Common Price</label>
                   <p class="control is-expanded has-icons-left">
-                    <input class="input" type="text" name="price" placeholder="20">
+                    <input class="input" type="text" name="price" placeholder="20" required pattern="[0-9].{0,10}">
                     <span class="icon is-small is-left">
                       <i class="fas fa-dollar-sign"></i>
                     </span>
@@ -50,11 +50,11 @@
                   <label class="label">Generic?</label>
                   <div class="control">
                     <label class="radio">
-                      <input type="radio" name="generic" value="Yes" id="true">
+                      <input type="radio" name="generic" value="Yes" id="true" required>
                       Yes
                     </label>
                     <label class="radio">
-                      <input type="radio" name="generic" value="No" id="false">
+                      <input type="radio" name="generic" value="No" id="false" required>
                       No
                     </label>
                   </div>
@@ -72,6 +72,7 @@
                     </span>
                     <input class="input" type="text" name="image" placeholder="https//...">
                   </div>
+                  <p class="help">Image URL is not required.</p>
                 </div>
               </div>
             </div>
@@ -85,7 +86,7 @@
                       <span class="icon is-small is-left">
                         <i class="fas fa-weight-hanging"></i>
                       </span>
-                      <input class="input" type="text" name="dosage" placeholder="10">
+                      <input class="input" type="text" name="dosage" placeholder="10" min="0" required pattern="[0-9].{0,10}">
                     </p>
                     <p class="control">
                       <a class="button is-static">
@@ -118,7 +119,7 @@
               <div class="field-body">
                 <div class="field">
                   <div class="control has-text-centered">
-                    <button class="button is-primary" type="submit">
+                    <button class="button is-primary" id="newDrug" type="submit">
                       Add Drug
                     </button>
                   </div>

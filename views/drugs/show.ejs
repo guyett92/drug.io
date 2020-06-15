@@ -65,6 +65,23 @@
                                 </div>
                             </div>
                             <div class="content"> <!-- FIXME: Can add facts about each of the families -->
+                                <p>
+                                    <% if(body === "[]") { %>
+                                        No ingredients listed.
+                                    <% } else { %>
+                                        Ingredients: 
+                                        <% let newArr = body.split(',') %>
+                                        <% for(let i = 0; i < newArr.length; i ++) { %>
+                                            <% let currWord = newArr[i] %>
+                                            <% currWord = currWord.replace(/[^a-zA-Z0-9\s!?]+/g, '')%>
+                                            <% if(i === newArr.length - 1) { %>
+                                                <%= currWord %>
+                                            <% } else { %>
+                                                <%= currWord %>, 
+                                            <% } %>
+                                        <% }; %>
+                                    <% } %>
+                                </p>
                                 A member of the <%= drug.family.toLowerCase() %> family, <%= drug.name %> is commonly priced at $<%= drug.price%>. 
                                 If you would like to know more, please <a href="#">click here. FIXME: ADD INFO LINKS OR NOT IDK</a>
                                 LOREM IPSUM INFO HERE ABOUT THE DRUG PULLED FROM AN API AND INJECTED HERE

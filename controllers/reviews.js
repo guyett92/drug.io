@@ -9,29 +9,35 @@ module.exports = {
 };
 
 async function removeLike(req, res) {
-    const drug = await Drug.findOne({'reviews._id': req.params.id});
-    const reviewSubdoc = await drug.reviews.id(req.params.id);
-    for(let i = 0; i < reviewSubdoc.likes.length; i++) {
-        if(reviewSubdoc.likes[i].equals(req.user._id)) {
-            reviewSubdoc.likes.splice(i, 1);
+    try {
+        const drug = await Drug.findOne({'reviews._id': req.params.id});
+        const reviewSubdoc = await drug.reviews.id(req.params.id);
+        for(let i = 0; i < reviewSubdoc.likes.length; i++) {
+            if(reviewSubdoc.likes[i].equals(req.user._id)) {
+                reviewSubdoc.likes.splice(i, 1);
+            }
         }
+        drug.save(function(err) {
+            if(err) console.log(err);
+            res.redirect(`/drugs/${drug._id}`);
+        })
+    } catch (error) {
+        if(error) console.log(error)
+        res.redirect('back')
     }
-    drug.save(function(err) {
-        if(err) console.log(err);
-        res.redirect(`/drugs/${drug._id}`);
-    })
 }
 
 async function addLike(req, res) {
-    const drug = await Drug.findOne({'reviews._id': req.params.id});
-    const reviewSubdoc = await drug.reviews.id(req.params.id);
-    let alreadyLiked = false;
-    if(reviewSubdoc.likes) {
-        for(let i = 0; i < reviewSubdoc.likes.length; i++) {
-            if(reviewSubdoc.likes[i].name.equals(req.user._id)) {
-                alreadyLiked = true;
+    try {
+        const drug = await Drug.findOne({'reviews._id': req.params.id});
+        const reviewSubdoc = await drug.reviews.id(req.params.id);
+        let alreadyLiked = false;
+        if(reviewSubdoc.likes) {
+            for(let i = 0; i < reviewSubdoc.likes.length; i++) {
+                if(reviewSubdoc.likes[i].name.equals(req.user._id)) {
+                    alreadyLiked = true;
+                }
             }
-        }
             if(alreadyLiked) {
                 return res.redirect(`/drugs/${drug._id}`);
             }
@@ -40,7 +46,11 @@ async function addLike(req, res) {
         drug.save(function(err) {
             if(err) console.log(error);
             res.redirect(`/drugs/${drug._id}`);
-    })
+        })
+    } catch (error) {
+        if(error) console.log(error)
+        res.redirect('back')
+    }
 }
 
 async function delReview(req, res) {
@@ -53,7 +63,7 @@ async function delReview(req, res) {
             res.redirect('back')
         })
     } catch (error) {
-        console.log(error)
+        if(error) console.log(error)
         res.redirect('back')
     }
 }
@@ -66,7 +76,7 @@ async function create(req, res) {
         // Convert  side effects checkbox to boolean
         req.body.sideEffect = !!req.body.sideEffect;
         req.user.save(function(err) {
-                    console.log(err);
+            if(err) console.log(err);
         })
         //Remove blank fields
         for (let key in req.body) {
@@ -76,10 +86,9 @@ async function create(req, res) {
         drug.save(function(err) {
             if(err) return res.redirect(`/drugs`);
         })
-        console.log(drug);
         res.redirect(`/drugs/${drug._id}`);
     } catch (error) {
-        console.log(error);
+        if(error) console.log(error);
         res.redirect('/drugs');
     }
 }

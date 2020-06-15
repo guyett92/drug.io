@@ -6,11 +6,11 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL: "http://localhost:3000/oauth2callback" //change to process.env.GOOGLE_CALLBACK
+    callbackURL: process.env.GOOGLE_CALLBACK //change to "http://localhost:3000/oauth2callback"
     },
     function(accessToken, refreshToken, profile, cb) {
         User.findOne({ 'googleId': profile.id}, function(err, user) {
-            if (err) return cb(err); // FIXME: Add error handling
+            if (err) return cb(err);
             if (user) {
                 return cb(null, user);
             } else {
