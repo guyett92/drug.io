@@ -29,7 +29,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 ## Planning
 * [Trello Board](https://trello.com/b/MgOvnIqI/drug-review)
 * [Wireframes](https://balsamiq.cloud/sah357c/peb4ecb)
-* ![Entity Relationship Diagram](res/ERD.svg)
+* ![Entity Relationship Diagram](/res/ERD.svg)
 ## Goals
 * Users can view a profile screen where all their favorites are listed.
 * Users can update their profile to add a bio or an image if one is not already added.
