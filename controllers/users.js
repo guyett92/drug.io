@@ -3,8 +3,17 @@ const User = require('../models/user');
 const moment = require('moment');
 
 module.exports = {
-    show
+    show,
+    update
 };
+
+async function update(req, res) { // FIXME: Finish
+    try {
+        const user = await User.findById(req.user.id);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 async function show(req, res) {
     try {

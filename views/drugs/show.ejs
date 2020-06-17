@@ -82,9 +82,11 @@
                                         <% }; %>
                                     <% } %>
                                 </p>
-                                A member of the <%= drug.family.toLowerCase() %> family, <%= drug.name %> is commonly priced at $<%= drug.price%>. 
-                                If you would like to know more, please <a href="#">click here. FIXME: ADD INFO LINKS OR NOT IDK</a>
-                                LOREM IPSUM INFO HERE ABOUT THE DRUG PULLED FROM AN API AND INJECTED HERE
+                                <p>A member of the <%= drug.family.toLowerCase() %> family, <%= drug.name %> is commonly priced at $<%= drug.price%>.
+                                Each drug is a member of a drug family that can be found by FIXME: ADD LINKSclicking on the links. There are tooltips available to help
+                                understand where the side effects come from above!
+                                If you would like to know more, <a href="https://en.wikipedia.org/wiki/<%= drug.name %>">click here</a>.</p>
+                                
                             </div>
                                 <% if(user) { %>
                                 <div class="liked-container">
@@ -203,8 +205,17 @@
         </div>
     <% } %>
     <% if(drug.reviews.length >= 1) { %>
-        <div class="container">
-            <% drug.reviews.forEach(function(review, idx) { %>
+        <% let reviewList = []; %>
+        <% let likeCount = -1; %>
+        <% drug.reviews.forEach(function(r, idx) { %>
+            <% if(r.likes.length > likeCount) { %>
+                <% likeCount = r.likes.length; %>
+                <% reviewList.unshift(r); %>
+            <% } else { %>
+                <% reviewList.push(r); %>
+            <% } %>
+        <% }); %>
+            <% reviewList.forEach(function(review, idx) { %>
                 <div class="box">
                 <article class="media">
                     <figure class="media-left">
@@ -260,7 +271,7 @@
                                     <% } %>
                                 </a>
                                 <small>
-                                    <p><%= review.likes.length %></p>
+                                    <p><%= review.likes.length %> · <%= review.sideEffect ? 'Side Effects Reported' : 'No Side Effects' %></p>
                                 </small>
                             </div>
                         </nav>
@@ -283,7 +294,6 @@
             </div>
         </div>
         <% } %>
-    </div>
 </section>
 
 <div class="modal">
