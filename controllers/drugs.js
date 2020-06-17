@@ -145,7 +145,6 @@ function newDrug(req, res) {
     });
 }
 
-
 //Async-await find an API
 // async function getDrugData(userParam) {
 //     const response = await fetch(`LINK${userParam}`);
@@ -170,21 +169,6 @@ async function index(req, res) {
     }
 }
 
-
-// Get all the drugs
-// function index(req, res) {
-//     Drug.find({}, function(err, drugs) {
-//         User.find({}, function(err, users) {
-//             res.render('drugs/index', {
-//                 drugs,
-//                 users,
-//                 user: req.user,
-//                 title: 'Drugs List', 
-//             });
-//         });
-//     });
-// }
-
 // Promises instead of callback functions
 // function index(req, res) {
 //     Drug.find({}).then(drugs => {
@@ -199,9 +183,4 @@ async function index(req, res) {
 //             res.redirect('error'); //FIXME: Create error template
 //         });
 //     });
-// }
-
-// Promises example FIXME: Add API
-// function getDrugData(userParam) { //amount `omdb.com/api?=${amount}...
-//     fetch(`LINK${userParam}`).then(response => response.json()).then(data => console.log(data));    
 // }

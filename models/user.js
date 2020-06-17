@@ -14,7 +14,8 @@ const userSchema = new Schema({
     liked: {
         type: Array,
         default: []
-    }
+    },
+    bio: String
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

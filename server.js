@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000;
 const indexRouter = require('./routes/index');
 const drugsRouter = require('./routes/drugs');
 const reviewsRouter = require('./routes/reviews');
+const usersRouter = require('./routes/users');
 
 // Create our express app
 const app = express();
@@ -47,6 +48,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/drugs', drugsRouter);
 app.use('/', reviewsRouter);
+app.use('/users', usersRouter);
 
 // Listening...
 app.listen(port, function () {

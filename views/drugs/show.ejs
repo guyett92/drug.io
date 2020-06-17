@@ -27,9 +27,9 @@
                     <div class="card-image">
                         <figure class="image is-square">
                             <% if(drug.image) { %>
-                                <img src="<%= drug.image %>" alt="Image of <%= drug.name %>">
+                                <img class="userAvatar" src="<%= drug.image %>" alt="Image of <%= drug.name %>">
                             <% } else { %>
-                                <i class="fas fa-capsules" id="alt-drug" aria-hidden="true"></i>
+                                <img class="userAvatar" src="https://images.unsplash.com/photo-1533374206871-33b8f07c216c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80" alt="Image not found">
                             <% } %>
                         </figure>
                     </div>
@@ -142,6 +142,7 @@
 </section>
 <hr>
 <section id="reviews" class="section">
+    <div class="container">
     <h2 class="title is-2 has-text-centered">Reviews</h2>
     <% let alreadyReviewed = false; %>
     <% if(user) { %>
@@ -282,6 +283,15 @@
             </div>
         </div>
         <% } %>
+    </div>
 </section>
+
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <img src="<%= drug.image %>">
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
 
 <%- include('../partials/footer') %>

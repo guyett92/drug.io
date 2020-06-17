@@ -15,7 +15,7 @@
         <title><%= title %></title>
     </head>
     <body>
-         <nav class="navbar">
+         <nav class="navbar" id="nav-target">
              <div class="navbar-brand">
                  <a class="navbar-item" href="/"><img class="logo" src="/img/pills.svg" alt="Logo"><img class="logo" src="/img/logo.png" alt="logo text"></a>
                  <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMobile">
@@ -27,9 +27,9 @@
              </div>
             <div id="navbarMobile" class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item <%= title === 'Drugs Review' ? 'active' : '' %>" href="/">Home</a>
-                    <a class="navbar-item <%= title === 'Drugs List' ? 'active' : '' %>" href="/drugs">Drugs List</a>
-                    <a class="navbar-item <%= title === 'Add New Drug' ? 'active' : '' %>" href="/drugs/new">Add Drug</a>
+                    <a class="navbar-item <%= title === 'Drug.io | Home' ? 'active' : '' %>" href="/">Home</a>
+                    <a class="navbar-item <%= title === 'Drug.io | View All' ? 'active' : '' %>" href="/drugs">Drugs List</a>
+                    <a class="navbar-item <%= title === 'Drug.io | Add a Drug' ? 'active' : '' %>" href="/drugs/new">Add Drug</a>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">More</a>
                         <div class="navbar-dropdown">
@@ -39,12 +39,15 @@
                             <a class="navbar-item">Report an Issue</a>
                         </div>
                     </div>
+                    <% if(user) { %>
+                        <a id = "userPage" class="navbar-item" href="/users/<%= user._id %>"><span class="icon"><i class="far fa-user"></i></span>&nbsp;<%= user.name.substring(0, user.name.indexOf(' ')) %></a>
+                    <% } %>
                 </div>
                 <hr class="navbar-divider">
             </div>
             <div class="navbar-end">
                 <% if(user) { %>
-                    <a class="navbar-item" href="/logout"><span class="icon"><i class="fas fa-sign-out-alt"></i></span>Log Out</a>
+                    <a class="navbar-item" href="/logout"><span class="icon"><i class="fas fa-sign-out-alt"></i></span>Log Out</a>    
                 <% } else { %>
                     <a href="auth/google" class="navbar-item"><span class="icon"><i class="fas fa-sign-in-alt"></i></span>Login with Google</a>
                 <% } %>

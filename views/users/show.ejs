@@ -1,0 +1,109 @@
+<%- include('../partials/header') %>
+<% let uLL = user.liked.length %>
+    <section class="hero is-info is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    <%= user.name %>
+                </h1>
+                <h2 class="subtitle">
+                    <% if(uLL < 1) { %>
+                        Rookie Reviewer
+                    <% } else if(uLL <= 5) { %>
+                        Novice Reviewer
+                    <% } else if(uLL <= 20) { %>
+                        Experience Reviewer
+                    <% } else if(uLL <= 99) { %>
+                        Expert Reviewer
+                    <% } else { %>
+                        All-Knowing Reviewer
+                    <% } %>
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-3">
+                    <div class="column is-6">
+                    <figure class="image">
+                        <img class="userAvatar" src="<%= user.avatarURL %>" alt="Profile Picture">
+                    </figure>
+                    </div>
+                    <div class="column is-12">
+                        <p>Joined <%= moment(user.createdAt).format("MMMM YYYY") %></p>
+                        <hr>
+                        <% if(!user.bio) { %>
+                        <p class="has-text-weight-light">Want to add a bio? Click on the <strong>'Edit Profile'</strong> button below!</p>
+                        <% } else { %>
+                            <%= user.bio %>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="notification is-light">
+                        <h3 class="title is-3">Profile</h3>
+                        <p>
+                            <% if(uLL > 0) { %>
+                                You currently have <%= uLL %> drug(s) favorited:&nbsp;
+                                <% user.liked.forEach(function(l, idx) { %>
+                                    <%if(idx === uLL - 1) { %>
+                                        <span class="is-italic"><%= l %></span>
+                                    <% } else { %>
+                                        <span class="is-italic"><%= l + ', ' %></span>
+                                    <% } %>
+                                <% }) %>
+                            <% } else { %>
+                                You have not favorited any drugs.
+                            <% } %>
+                        </p>
+                        <br>
+                        <div class="columns">
+                            <% let rCount = 0; %>
+                            <% let maxLikes = -1; %>
+                            <% let bestReview, bestDrugReview; %>
+                            <% drugs.forEach(function(d, idx) { %>
+                                <% d.reviews.forEach(function(r, index) { %>
+                                    <% if(r.postedBy.equals(user._id)) { %>
+                                        <% rCount += 1; %>
+                                        <% if(r.likes.length > maxLikes) { %>
+                                            <% maxLikes = r.likes.length; %>
+                                            <% bestDrugReview = d; %>
+                                            <% bestReview = r; %>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+                            <% }); %>
+                            <% if(rCount < 1) { %>
+                                <p>Whoa! You haven't left any reviews yet. Get out there and share your experiences!</p>
+                            <% } else { %>
+                                <div class="column is-one-third has-text-centered">
+                                    <h5 class="title is-5">Reviews Posted</h5>
+                                    <h1 class="title is-1"><%= rCount %></h1>
+                                </div>
+                                <div class="column is-one-third has-text-centered">
+                                    <h5 class="title is-5">Most Likes</h5>
+                                    <h1 class="title is-1"><%= maxLikes %></h1>
+                                </div>
+                                <div class="column is-one-third has-text-centered">
+                                    <h5 class="title is-5">Best Review</h5>
+                                    <h1 class="title is-1"><a class="drug-review" href="/drugs/<%= bestDrugReview._id %>"><%= bestDrugReview.name %></a></h1>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <img src="<%= user.avatarURL %>">
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+<%- include('../partials/footer') %>

@@ -28,6 +28,14 @@ footer {
   margin-bottom: 1rem !important;
 }
 
+.userAvatar {
+  cursor: pointer;
+}
+
+.drug-review:hover {
+  color: #3273DC !important;
+}
+
 .login-review {
   margin-bottom: 1rem !important;
 }
