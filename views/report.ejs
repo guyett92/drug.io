@@ -1,0 +1,78 @@
+<%- include('./partials/header') %>
+<section class="hero is-danger is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+            Have an issue?
+            </h1>
+            <h2 class="subtitle">
+            Report it below!
+            </h2>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="section">
+    <div class="container">
+        <form action="/contact" id="contact-form" method="POST" role="form">
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control has-icons-left">
+                    <input class="input" id="name" name="name" type="text" placeholder="Harry August" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user-check"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control has-icons-left">
+                    <input class="input" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="email" placeholder="harry.august@15first.com" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- <div class="field">
+                <label class="label">Image</label>
+                <div class="control"> FIXME: Add image upload buffer
+                    <input type="file" id="upload-image" name="image" accept="image/*">
+                </div>
+            </div> -->
+            <div class="field">
+                <label class="label">Category</label>
+                <div class="control">
+                    <div class="select">
+                        <select name="category" required>
+                            <option value="Didn't do anything">Didn't do anything</option>
+                            <option value="Failed to load">Failed to load</option>
+                            <option value="Didn't update">Didn't update</option>
+                            <option value="Looks funny">Looks funny</option>
+                            <option value="Unexpected outcome">Unexpected outcome</option>
+                            <option value="Mobile issue">Mobile issue</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Message</label>
+                <div class="control">
+                    <textarea class="textarea" name="message" placeholder="I want to change or report..." required></textarea>
+                </div>
+            </div>          
+              <div class="field is-grouped">
+                  <div class="control">
+                      <button class="button is-success" type="submit">Submit</button>
+                  </div>
+                  <div class="control">
+                      <a class="button is-danger" id="clear-fields">Clear Fields</a>
+                  </div>
+              </div>          
+          </form>
+    </div>
+</section>
+
+<%- include('./partials/footer') %>

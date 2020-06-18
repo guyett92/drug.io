@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 const methodOverride = require('method-override');  
 const favicon = require('serve-favicon');
+const nodemailer = require('nodemailer');
 
 const port = process.env.PORT || 3000;
 
@@ -18,7 +19,8 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 // Connect to DB, and configs
-require('dotenv').config(); // Has to be before database config
+// Has to be before database config
+require('dotenv').config({ path: require('find-config')('.env')})
 require('./config/database');
 require('./config/passport');
 

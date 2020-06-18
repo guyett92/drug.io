@@ -1,0 +1,63 @@
+<%- include('./partials/header') %>
+<section class="hero is-success is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+            Want to chat?
+            </h1>
+            <h2 class="subtitle">
+            Contact the developer below
+            </h2>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <form action="/contact" id="contact-form" method="POST" role="form">
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control has-icons-left">
+                    <input class="input" id="name" name="name" type="text" placeholder="Elon Musk" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user-check"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Subject</label>
+                <div class="control has-icons-left">
+                    <input class="input" id="subject" name="subject" type="text" placeholder="Greetings from Elon" required>
+                    <span class="icon is-small is-left">
+                        <i class="far fa-lightbulb"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control has-icons-left">
+                    <input class="input" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="email" placeholder="elon@outspace.com" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Message</label>
+                <div class="control">
+                    <textarea class="textarea" name="message" placeholder="I love this app so much because..." required></textarea>
+                </div>
+            </div>          
+              <div class="field is-grouped">
+                  <div class="control">
+                      <button class="button is-success" type="submit">Submit</button>
+                  </div>
+                  <div class="control">
+                      <a class="button is-danger" id="clear-fields">Clear Fields</a>
+                  </div>
+              </div>          
+          </form>
+    </div>
+</section>
+
+<%- include('./partials/footer') %>

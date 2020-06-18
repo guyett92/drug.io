@@ -4,6 +4,12 @@ const passport = require('passport');
 const indexCtrl = require('../controllers/index');
 
 router.get('/', indexCtrl.index);
+router.get('/about', indexCtrl.about);
+router.get('/contact', indexCtrl.contact);
+router.get('/report', indexCtrl.report);
+router.post('/report', indexCtrl.submitReport);
+router.post('/contact', indexCtrl.submitContact);
+
 
 router.get('/auth/google', passport.authenticate(
     'google',

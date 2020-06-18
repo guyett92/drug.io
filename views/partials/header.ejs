@@ -11,7 +11,7 @@
         <script defer src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script defer data-require="moment.js@2.10.2" data-semver="2.10.2" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
         <script defer src="/js/script.js"></script>
-        <script defer src="bulma-toast.min.js"></script>
+        <script defer src="/js/bulma-toast.min.js"></script>
         <title><%= title %></title>
     </head>
     <body>
@@ -29,14 +29,14 @@
                 <div class="navbar-start">
                     <a class="navbar-item <%= title === 'Drug.io | Home' ? 'active' : '' %>" href="/">Home</a>
                     <a class="navbar-item <%= title === 'Drug.io | View All' ? 'active' : '' %>" href="/drugs">Drugs List</a>
-                    <a class="navbar-item <%= title === 'Drug.io | Add a Drug' ? 'active' : '' %>" href="/drugs/new">Add Drug</a>
+                    <% if(user) { %><a class="navbar-item <%= title === 'Drug.io | Add a Drug' ? 'active' : '' %>" href="/drugs/new">Add Drug</a><% } %>
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">More</a>
+                        <a class="navbar-link <%= title === 'Drug.io | About' || title === 'Drug.io | Contact' || title === 'Drug.io | Report'  ? 'active' : '' %>">More</a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item" href="#">About</a> <!-- FIXME: ADD PAGES HERE-->
-                            <a class="navbar-item" href="#">Contact</a>
+                            <a class="navbar-item <%= title === 'Drug.io | About' ? 'active' : '' %>" href="/about">About</a>
+                            <a class="navbar-item <%= title === 'Drug.io | Contact' ? 'active' : '' %>" href="/contact">Contact</a>
                             <hr class="navbar-divider">
-                            <a class="navbar-item">Report an Issue</a>
+                            <a class="navbar-item <%= title === 'Drug.io | Report' ? 'active' : '' %>" href="/report">Report an Issue</a>
                         </div>
                     </div>
                     <% if(user) { %>

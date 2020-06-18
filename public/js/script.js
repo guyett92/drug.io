@@ -1,7 +1,7 @@
 /*----- constants -----*/
 
 /*----- app's state (variables) -----*/
-
+let dangerCount = 1;
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
@@ -9,16 +9,63 @@
 $('.navbar-burger').on('click', classToggle);
 $(window).on('resize', fixedNav);
 $('.userAvatar').on('click', activateModal);
-$('.modal').on('click', closeModal);
-
+$('.reg-modal').on('click', closeModal);
+$('#edit').on('click', activateCard);
+$('.delete').on('click', closeCard);
+$('.close-modal').on('click', closeCard);
+$('input').on('invalid', addDanger);
+$('input').on('keyup', removeDanger);
+$('#clear-fields').on('click', clearFields);
+$('form').on('submit', formSuccess);
 
 /*----- functions -----*/
+function formSuccess(e) {
+    bulmaToast.toast({
+        message: 'Successful Submission',
+        position: 'bottom-left',
+        type: 'is-success',
+        opacity: 0.7
+    });
+}
+
+function clearFields(e) {
+    $('input').val('');
+    $('textarea').val('');
+}
+
+//Add visual cue for inaccurate inputs
+function removeDanger(e) {
+    e.target.classList.remove('is-danger');
+}
+
+function addDanger(e) {
+    e.target.classList.add('is-danger');
+    while (dangerCount === 1) {
+        bulmaToast.toast({
+            message: 'Oops! Something is wrong...',
+            position: 'bottom-left',
+            type: 'is-danger',
+            duration: '10000',
+            dismissable: true
+        });
+        dangerCount -= 1;
+    }
+}
+// For card modals
+function closeCard(e){
+    $('.cardModal').removeClass('is-active');
+}
+
+function activateCard(e) {
+    $('.cardModal').addClass('is-active');
+}
+
 function closeModal(e) {
-    $('.modal').removeClass('is-active');
+    $('.reg-modal').removeClass('is-active');
 }
 
 function activateModal(e) {
-    $('.modal').addClass('is-active');
+    $('.reg-modal').addClass('is-active');
 }
 
 function classToggle(e) {
@@ -47,7 +94,6 @@ $(function() {
          $('#userPage').addClass('active');
     }
 });
-
 
 //How do I use this here rather than in my partial?
 function isVowel(letter) {

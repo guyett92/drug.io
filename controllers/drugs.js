@@ -2,6 +2,7 @@ const Drug = require('../models/drug');
 const User = require('../models/user');
 const moment = require('moment');
 const request = require('request');
+const drug = require('../models/drug');
 let showDrug, userQuery;
 let options = {
     method: 'GET',
@@ -17,6 +18,17 @@ let serpOptions = {
     url:'https://app.zenserp.com/api/v2/search?q=' + userQuery + '&apikey=f3b1a770-aec5-11ea-8bc1-3f6cfb6956fc&tbm=isch'
 };
 
+let searchOptions = {
+        method: 'GET',
+        url: 'https://iterar-mapi-us.p.rapidapi.com/api/autocomplete',
+        qs: {query: 'res'},
+        headers: {
+          'x-rapidapi-host': 'iterar-mapi-us.p.rapidapi.com',
+          'x-rapidapi-key': '88f91a3130msh91c28237cd492bap1876a5jsn00d4c51c5111',
+          useQueryString: true
+        }
+}
+
 module.exports = {
     index,
     new: newDrug,
@@ -27,7 +39,6 @@ module.exports = {
 };
 
 function removeLike(req, res) {
-    console.log(SERP_KEY)
     Drug.findById(req.params.id, function(err, drug) {
         for(let i = 0; i < req.user.liked.length; i++) {
             if(req.user.liked[i] === drug.name) {
@@ -39,7 +50,7 @@ function removeLike(req, res) {
             if(err) console.log(err);
             req.user.save(function(err) {
                 if(err) console.log(err);
-                res.redirect(`/drugs/${drug._id}`);
+                res.redirect(`back`);
             })
         })
     })
@@ -94,44 +105,62 @@ async function show(req, res) {
 
 function create(req, res) {
     Drug.find({}, function(err, drugs) {
-        let imageUrl;
-        let newVar = req.body.name;
-        newVar = newVar.toLowerCase();
-        for(let i = 0; i < drugs.length; i++) {
-            let drugName = drugs[i].name.toLowerCase()
-            if(drugName === newVar) {
-                return res.redirect('back');
+        let notFound;
+        searchOptions.qs.query = req.body.name;
+        // Check to see if this drug is a possibility
+        request(searchOptions, function(error, resp, bod) {
+            newBod = JSON.parse(bod);
+            for(let i = 0; i < newBod.suggestions.length; i++) { 
+                if(newBod.suggestions[i].toLowerCase() === req.body.name.toLowerCase()) {
+                    notFound = false;
+                } else {
+                    notFound = true;
+                }
             }
-        }
-        for (let key in req.body) {
-            if (req.body[key] === '') delete req.body[key];
-        }
-        // Convert generic to a boolean
-        req.body.generic = req.body.generic.value === "Yes";
-        // Set the URL to be used to parse for images
-        if(!req.body.image) {
-            serpOptions.url = 'https://app.zenserp.com/api/v2/search?q=' + newVar + '&apikey=f3b1a770-aec5-11ea-8bc1-3f6cfb6956fc&tbm=isch'
-            request(serpOptions, function(err, response, body) {
-                newObj = JSON.parse(body);
-                imageUrl = newObj.image_results[0].sourceUrl;
-                req.body.image = imageUrl;
-                console.log(imageUrl);
-                console.log(req.body.image);
-                const drug = new Drug(req.body);
-                console.log(drug);
-                drug.image = imageUrl;
-                drug.save(function(err) {
-                    if(err) return res.redirect('back');
-                    res.redirect(`/drugs/${drug._id}`);
-                });
-            });
-        } else {        
-            const drug = new Drug(req.body);
-            drug.save(function(err) {
-                if(err) return res.redirect('back');
-                res.redirect(`/drugs/${drug._id}`);
-            });
-        }
+            if (notFound) {
+                let imageUrl;
+                let newVar = req.body.name;
+                newVar = newVar.toLowerCase();
+                for(let i = 0; i < drugs.length; i++) {
+                    let drugName = drugs[i].name.toLowerCase()
+                    if(drugName === newVar) {
+                        return res.redirect('back');
+                    }
+                }
+                for (let key in req.body) {
+                    if (req.body[key] === '') delete req.body[key];
+                }
+                // Convert generic to a boolean
+                req.body.generic = req.body.generic.value === "Yes";
+                // Set the URL to be used to parse for images
+                if(!req.body.image) {
+                    serpOptions.url = 'https://app.zenserp.com/api/v2/search?q=' + newVar + '&apikey=f3b1a770-aec5-11ea-8bc1-3f6cfb6956fc&tbm=isch'
+                    request(serpOptions, function(err, response, body) {
+                        newObj = JSON.parse(body);
+                        imageUrl = newObj.image_results[0].sourceUrl;
+                        req.body.image = imageUrl;
+                        const drug = new Drug(req.body);
+                        drug.image = imageUrl;
+                        drug.save(function(err) {
+                            if(err) return res.redirect('back');
+                            res.redirect(`/drugs/${drug._id}`);
+                        });
+                    });
+                } else {        
+                    const drug = new Drug(req.body);
+                    drug.save(function(err) {
+                        if(err) return res.redirect('back');
+                        res.redirect(`/drugs/${drug._id}`);
+                    });
+                }
+            } else {
+                res.render('drugs/new', {
+                    user: req.user,
+                    title: 'Drug.io | Add a Drug',
+                    message: 'That is not a drug!'
+                })
+            }
+        })
     });
 }
 

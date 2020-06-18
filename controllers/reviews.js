@@ -12,6 +12,11 @@ async function removeLike(req, res) {
     try {
         const drug = await Drug.findOne({'reviews._id': req.params.id});
         const reviewSubdoc = await drug.reviews.id(req.params.id);
+        req.user.liked.forEach(function(l, i) {
+            if(l === drug.name) {
+                liked.splice(i, 1);
+            }
+        })
         for(let i = 0; i < reviewSubdoc.likes.length; i++) {
             if(reviewSubdoc.likes[i].equals(req.user._id)) {
                 reviewSubdoc.likes.splice(i, 1);
@@ -22,7 +27,7 @@ async function removeLike(req, res) {
             res.redirect(`/drugs/${drug._id}`);
         })
     } catch (error) {
-        if(error) console.log(error)
+        console.log(error)
         res.redirect('back')
     }
 }
@@ -48,7 +53,7 @@ async function addLike(req, res) {
             res.redirect(`/drugs/${drug._id}`);
         })
     } catch (error) {
-        if(error) console.log(error)
+        console.log(error)
         res.redirect('back')
     }
 }
@@ -63,7 +68,7 @@ async function delReview(req, res) {
             res.redirect('back')
         })
     } catch (error) {
-        if(error) console.log(error)
+        console.log(error)
         res.redirect('back')
     }
 }
@@ -88,7 +93,7 @@ async function create(req, res) {
         })
         res.redirect(`/drugs/${drug._id}`);
     } catch (error) {
-        if(error) console.log(error);
+        console.log(error);
         res.redirect('/drugs');
     }
 }
