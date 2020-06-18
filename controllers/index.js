@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Drug = require('../models/drug');
 const nodemailer = require('nodemailer');
 const GMAIL_USER = process.env.GMAIL_USER
 const GMAIL_PASS = process.env.GMAIL_PASS
@@ -10,13 +11,30 @@ module.exports = {
     contact,
     report,
     submitReport,
-    submitContact
+    submitContact,
+    search
 };
+
+async function search(req, res) {
+    try {
+        req.body.term = await req.body.term.toLowerCase();
+        req.body.term = await req.body.term.charAt(0).toUpperCase() + req.body.term.slice(1);
+        const drug = await Drug.findOne({'name': req.body.term});
+        if (drug) {
+            res.redirect(`/drugs/${drug._id}`)
+        } else {
+            res.redirect('back');
+        }
+    } catch (error) {
+        console.log(error);
+        res.redirect('back');
+    }
+}
 
 async function submitContact(req, res) {
     try {
         let transport = nodemailer.createTransport({
-            host: "smtp.gmail.com",
+            host: 'smtp.gmail.com',
             port: 465,
             auth: {
               user: 'inquiryatag@gmail.com',

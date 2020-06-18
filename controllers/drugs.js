@@ -2,7 +2,7 @@ const Drug = require('../models/drug');
 const User = require('../models/user');
 const moment = require('moment');
 const request = require('request');
-const drug = require('../models/drug');
+
 let showDrug, userQuery;
 let options = {
     method: 'GET',
@@ -35,8 +35,28 @@ module.exports = {
     create,
     show,
     addLike,
-    removeLike
+    removeLike,
+    sort
 };
+
+async function sort(req, res) {
+    try {
+        const drugs = await Drug.find({}, null, {sort: {name: 1}});
+        const users = await User.find({});
+        users.save(function(err) {
+            if(err) console.log(error);
+            res.render('drugs/index', { // FIXME: ADD SORT FEATURE
+                drugs,
+                users,
+                user: req.user,
+                title: 'Drug.io | View All', 
+            });
+        })
+    } catch (error) {
+        console.log(error);
+        res.redirect('back');
+    }
+}
 
 function removeLike(req, res) {
     Drug.findById(req.params.id, function(err, drug) {
@@ -132,6 +152,9 @@ function create(req, res) {
                 }
                 // Convert generic to a boolean
                 req.body.generic = req.body.generic.value === "Yes";
+                // Format the name
+                req.body.name = req.body.name.toLowerCase();
+                req.body.name = req.body.name.charAt(0).toUpperCase() + req.body.name.slice(1);
                 // Set the URL to be used to parse for images
                 if(!req.body.image) {
                     serpOptions.url = 'https://app.zenserp.com/api/v2/search?q=' + newVar + '&apikey=f3b1a770-aec5-11ea-8bc1-3f6cfb6956fc&tbm=isch'
@@ -174,14 +197,6 @@ function newDrug(req, res) {
     });
 }
 
-//Async-await find an API
-// async function getDrugData(userParam) {
-//     const response = await fetch(`LINK${userParam}`);
-//     const data = await response.json();
-//     console.log(data);
-// }
-
-//Async await instead
 async function index(req, res) {
     try {
         const drugs = await Drug.find({});
@@ -194,22 +209,24 @@ async function index(req, res) {
         });
     } catch (error) {
         console.log(error);
-        res.redirect('back'); //FIXME: Add error handler here, can test error by making User above to Users
+        res.redirect('back');
     }
 }
 
-// Promises instead of callback functions
-// function index(req, res) {
-//     Drug.find({}).then(drugs => {
-//         User.find({}).then(users => {
-//             res.render('drugs/index', {
-//                 drugs,
-//                 users,
-//                 user: req.user,
-//                 title: 'Drugs List', 
-//             })
-//         }).catch(err => {
-//             res.redirect('error'); //FIXME: Create error template
-//         });
-//     });
-// }
+/* Example promise
+ * Promises instead of callback functions
+ * function index(req, res) {
+ *     Drug.find({}).then(drugs => {
+ *         User.find({}).then(users => {
+ *             res.render('drugs/index', {
+ *                 drugs,
+ *                 users,
+ *                 user: req.user,
+ *                 title: 'Drugs List', 
+ *             })
+ *         }).catch(err => {
+ *             res.redirect('error'); 
+ *         });
+ *     });
+ * }
+ */ 

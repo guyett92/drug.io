@@ -42,6 +42,18 @@
                     <% if(user) { %>
                         <a id = "userPage" class="navbar-item" href="/users/<%= user._id %>"><span class="icon"><i class="far fa-user"></i></span>&nbsp;<%= user.name.substring(0, user.name.indexOf(' ')) %></a>
                     <% } %>
+                        <form action="/search" method="POST" role="form">
+                            <div class="navbar-item">
+                            <div class="field">
+                                <div class="control has-icons-right">
+                                    <input class="input" type="text" name="term" placeholder="Search" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="navbar-item">
+                            <button id="search-button" type="submit"><span class="icon"><i class="fas fa-search"></i></span></button>
+                        </div>
                 </div>
                 <hr class="navbar-divider">
             </div>

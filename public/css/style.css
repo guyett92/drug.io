@@ -28,6 +28,18 @@ footer {
   margin-bottom: 1rem !important;
 }
 
+#search {
+  padding-top: 0.5 !important;
+}
+
+#search-button {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .modal-content {
   overflow: hidden !important;
 }

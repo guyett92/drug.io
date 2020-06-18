@@ -21,7 +21,12 @@
                                     <table class="table is-hoverable">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
+                                                <th>
+                                                    <form class="form" action="/drugs/sort" method="GET" role="form">
+                                                        Name
+                                                        <button id="search-button" type="submit"><span class="icon"><i class="fas fa-sort-down"></i></span></button>
+                                                    </form>
+                                                </th>
                                                 <th>Price</th>
                                                 <th>Family</th>
                                                 <th>Details</th>

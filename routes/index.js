@@ -9,7 +9,7 @@ router.get('/contact', indexCtrl.contact);
 router.get('/report', indexCtrl.report);
 router.post('/report', indexCtrl.submitReport);
 router.post('/contact', indexCtrl.submitContact);
-
+router.post('/search', indexCtrl.search);
 
 router.get('/auth/google', passport.authenticate(
     'google',

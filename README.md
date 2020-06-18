@@ -30,6 +30,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * Users can edit their profile.
 * Users can contact the owner.
 * Users can report an issue.
+* Users can search for a drug.
 ## Planning
 * [Trello Board](https://trello.com/b/MgOvnIqI/drug-review)
 * [Wireframes](https://balsamiq.cloud/sah357c/peb4ecb)
@@ -37,12 +38,12 @@ using ejs template tags. The image that is used is found by using a SERP to find
 ## Goals
 * ~~Users can view a profile screen where all their favorites are listed.~~
 * ~~Users can update their profile to add a bio or an image if one is not already added.~~
-* Users can search for a drug.
+* ~~Users can search for a drug.~~
 * Users can order the table of drugs by different categories.
 * Users can view the description of a drug pulled from an API.
 * Users can subscribe to get updates about a drug or a review.
 * Users can message others.
-* Users can leave feedback.
+* ~~Users can leave feedback.~~
 * ~~Users can view the top comment.~~
 * Users can request to delete a drug.
 * Error handling...
