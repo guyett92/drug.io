@@ -3,7 +3,6 @@ const User = require('../models/user');
 const moment = require('moment');
 const request = require('request');
 
-
 let showDrug, userQuery;
 let options = {
     method: 'GET',
@@ -37,19 +36,59 @@ module.exports = {
     show,
     addLike,
     removeLike,
-    requestDelete
+    requestDelete,
+    delete: deleteDrug
 };
 
+async function deleteDrug(req, res) {
+    try {
+        const drug = await Drug.findByIdAndDelete(req.params.id);
+        const users = await User.find({});
+        users.forEach(function(user) {
+            // Remove drug from user likes
+            user.liked.forEach(function(like, idx) {
+                if(like == drug.name) {
+                    user.liked.splice(idx, 1);
+                }
+            })
+            // Remove from admin pending deletion
+            if (user.name === 'Aaron Guyett') { // FIXME: add to dotenv with my user id instead
+                user.pendingDel.forEach(function(del, index) {
+                    if(del.equals(drug._id)) {
+                        console.log('found a pending del with equals')
+                        user.pendingDel.splice(index, 1);
+                    }
+                })
+            }
+            user.save(function(err) {
+                if (err) console.log(err);
+                console.log(user.pendingDel)
+            })
+        })
+
+        res.redirect('back');
+    } catch(error) {
+        console.log(error);
+        res.redirect('/');
+    }
+}
+
 async function requestDelete(req, res) {
-    console.log('yes');
     try {
         admin = await User.findById("5eec72fba7a2f518a095da23"); // FIXME: Add to .env and update when database is purged
-        console.log(admin.name);
         drug = await Drug.findById(req.params.id);
-        console.log(drug.name);
+        // Check to see if is already pending deletion
+        let alreadyAdded = false;
+        admin.pendingDel.forEach(function(del) {
+            if (del.equals(drug._id)) {
+                console.log('found');
+                alreadyAdded = true;
+            }
+        })
         // Add to admin user's pending drug deletions seen in user page
+        if (alreadyAdded) return res.redirect('back');
         admin.pendingDel.push(drug);
-        admin.save(await function(err) {
+        admin.save(function(err) {
             if(err){
                 console.log(err);
                 res.redirect('/drugs');
@@ -217,21 +256,3 @@ async function index(req, res) {
         res.redirect('back');
     }
 }
-
-/* Example promise
- * Promises instead of callback functions
- * function index(req, res) {
- *     Drug.find({}).then(drugs => {
- *         User.find({}).then(users => {
- *             res.render('drugs/index', {
- *                 drugs,
- *                 users,
- *                 user: req.user,
- *                 title: 'Drugs List', 
- *             })
- *         }).catch(err => {
- *             res.redirect('error'); 
- *         });
- *     });
- * }
- */ 

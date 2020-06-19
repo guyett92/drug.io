@@ -41,8 +41,15 @@
                             <a class="navbar-item <%= title === 'Drug.io | Report' ? 'active' : '' %>" href="/report">Report an Issue</a>
                         </div>
                     </div>
-                    <% if(user) { %>
-                        <a id = "userPage" class="navbar-item" href="/users/<%= user._id %>"><span class="icon"><i class="far fa-user"></i></span>&nbsp;<%= user.name.substring(0, user.name.indexOf(' ')) %></a>
+                    <% if(user) { %>                
+                        <a id = "userPage" class="navbar-item" href="/users/<%= user._id %>">
+                        <span class="icon"><i class="far fa-user"></i></span>&nbsp;<%= user.name.substring(0, user.name.indexOf(' ')) %>
+                        <% if(user.name === "Aaron Guyett") { %>
+                            <% if (user.pendingDel.length > 0) { %>
+                                <span class="has-text-danger icon">&nbsp;<%= user.pendingDel.length %><span ><i class="fas fa-minus-circle"></i></span></span>
+                            <% } %>
+                        <% } %>
+                    </a>
                     <% } %>
                         <form action="/search" method="POST" role="form">
                             <div class="navbar-item">

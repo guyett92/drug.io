@@ -1,5 +1,6 @@
-# Drug.io v. 0.88
-A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.
+# Drug.io v. 1.0
+A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.  \
+[Drug.io](https://drugs-review.herokuapp.com/)
 ## Features
 Users can login with their Google account and post reviews on current drugs on the portal. Users can also add and like reviews as well as post their own. Users can share their
 experiences with others. The application pulls data from multiple APIs to make adding a new drug easier. When a new drug is added, the data is formatted and presented to the user
@@ -31,6 +32,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * Users can contact the owner.
 * Users can report an issue.
 * Users can search for a drug.
+* Users can request to delete a drug and an admin is notified to approve it.
 ## Planning
 * [Trello Board](https://trello.com/b/MgOvnIqI/drug-review)
 * [Wireframes](https://balsamiq.cloud/sah357c/peb4ecb)
@@ -43,7 +45,19 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * Users can view the description of a drug pulled from an API.
 * Users can subscribe to get updates about a drug or a review.
 * Users can message others.
+* Users can view a drug family information page.
+* Users can upload an image to the site for their profile rather than link a URL.
 * ~~Users can leave feedback.~~
 * ~~Users can view the top comment.~~
-* ~~Users can request to delete a drug and an admin can approve it.~~ Nearly there!
-* Error handling...
+* ~~Users can request to delete a drug and an admin can approve it.~~ 
+* Convert all functions to async await.
+* Error handling, dotenv...
+## Some Stats - v.1.0
+* Started: June 3, 2020
+* Initial Release: June 19, 2020
+* Hours Worked: ~47
+* Lines of Code: 2386
+* 149 lines of code written a day
+* Coding 3 hours a day
+* Errors Found: 411
+* Errors Remediated: Secret :)

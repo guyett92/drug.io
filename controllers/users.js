@@ -1,14 +1,28 @@
 const Drug = require('../models/drug');
 const User = require('../models/user');
 const moment = require('moment');
-const drug = require('../models/drug');
 
 module.exports = {
     show,
-    update
+    update,
+    clearDel
 };
 
-async function update(req, res) { // FIXME: Finish
+async function clearDel(req, res) {
+    try {
+        const user = await User.findById(req.params.id);
+        user.pendingDel = [];
+        user.save(function(err) {
+            if (err) console.log(err);
+            res.redirect('back')
+        })
+    } catch(error) {
+        console.log(error);
+        res.redirect('/');
+    }
+}
+
+async function update(req, res) {
     try {
         const user = await User.findById(req.user.id);
         for (let key in req.body) {
@@ -16,7 +30,7 @@ async function update(req, res) { // FIXME: Finish
                 user[key] = req.body[key];
             }
         }
-        user.save(await function(err) {
+        user.save(function(err) {
             if(err) return res.redirect(`/`);
             res.redirect('back');
         });

@@ -10,20 +10,12 @@ router.get('/:id', drugsCtrl.show);
 router.post('/:id', drugsCtrl.addLike);
 router.put('/:id', drugsCtrl.removeLike);
 router.post('/:id/delete', drugsCtrl.requestDelete);
+router.delete('/:id', drugsCtrl.delete);
 
 
 router.get('/auth/google', passport.authenticate(
     'google',
     { scope: ['profile', 'email']}
-));
-
-router.get('/oauth2callback', passport.authenticate(
-    'google',
-    {
-        successRedirect: '/drugs',
-        failureRedirect: 'back',
-        failureFlash: true 
-    }
 ));
 
 router.get('/logout', function(req, res) {

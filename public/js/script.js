@@ -4,6 +4,7 @@
 let dangerCount = 1;
 let showImageContainer;
 let adjustCount = 1;
+let arrowCount = 2;
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
@@ -19,9 +20,21 @@ $('input').on('invalid', addDanger);
 $('input').on('keyup', removeDanger);
 $('#clear-fields').on('click', clearFields);
 $('form').on('submit', formSuccess);
+$('th > button').on('click', changeSort);
 window.onload = function () {makeAllSortable();};
 
 /*----- functions -----*/
+
+// Change the sorting arrow
+function changeSort(e) {
+    if(arrowCount % 2 === 0) {
+        $(this)[0].innerHTML = '<button id="search-button"><span class="icon"><i class="fas fa-sort-down"></i></span></button>';
+    } else {
+        $(this)[0].innerHTML = '<button id="search-button"><span class="icon"><i class="fas fa-sort-up"></i></span></button>';
+    }
+    arrowCount += 1;
+}
+
 function sortTable(table, col, reverse) {
     var tb = table.tBodies[0], // Ignore head and foot
         tr = Array.prototype.slice.call(tb.rows, 0), // Put rows into array
@@ -53,6 +66,7 @@ function makeAllSortable(parent) {
     while (--i >= 0) makeSortable(t[i]);
 }
 
+// When a form is submitted
 function formSuccess(e) {
     bulmaToast.toast({
         message: 'Successful Submission',
@@ -62,6 +76,7 @@ function formSuccess(e) {
     });
 }
 
+// Clear input fields with button
 function clearFields(e) {
     $('input').val('');
     $('textarea').val('');

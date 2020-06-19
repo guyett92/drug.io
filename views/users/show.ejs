@@ -103,27 +103,49 @@
                                 <h5 class="title is-5">Want to remove a drug from favorites?</h5>
                                 <h6 class="title is-6">Click on the drugs below!</h6>
                             <% } %>
-                            <% if (user) { %>
-                                <% drugs.forEach(function(d, idx) { %>
-                                    <% user.liked.forEach(function(l, index) { %>
-                                        <% if(d.name === l) { %>
-                                            <form action="/drugs/<%= d._id %>?_method=PUT" method="POST">
-                                                <button class="button is-small" type="submit"> <%= d.name %></button>
-                                            </form> 
-                                        <% } %>
+                            <% if (user && user.liked.length > 0) { %>
+                                <div class="columns">
+                                    <% drugs.forEach(function(d, idx) { %>
+                                        <% user.liked.forEach(function(l, index) { %>
+                                            <% if(d.name === l) { %>
+                                                <div class="column is-1">
+                                                    <form action="/drugs/<%= d._id %>?_method=PUT" method="POST">
+                                                        <button class="button is-small is-warning" type="submit"> <%= d.name %></button>
+                                                    </form> 
+                                                </div>
+                                            <% } %>
+                                        <% }); %>
                                     <% }); %>
-                                <% }); %>
+                                </div>
                             <% } %>
                         </div>
-                        <% if(user._id.equals("5eec72fba7a2f518a095da23")) { %>
+                        <% if(user._id.equals("5eec72fba7a2f518a095da23") && user.pendingDel.length > 0) { %>
                             <div class="column">
-                                <% user.pendingDel.forEach(function(del, idx) { %>
-                                    <% drugs.forEach(function(d, index) { %>
-                                        <% if(del.equals(d._id)) { %>
-                                            Pending Deletion: <%= d.name %>
-                                        <% } %>
+                                <h4 class="title is-4"><span class="icon"><i class="fas fa-user-cog"></i></span>&nbsp;Admin Panel</h4>
+                                <h6 class="title is-6"></span>&nbsp;Pending Deletion:</h6>
+                                <div class="columns">
+                                    <% user.pendingDel.forEach(function(del, idx) { %>
+                                        <% drugs.forEach(function(d, index) { %>
+                                            <% if(del.equals(d._id)) { %>
+                                                <div class="column is-1">
+                                                    <form action="/drugs/<%= d._id %>?_method=DELETE" method="POST" role="form">
+                                                        <button type="submit" class="button is-small is-danger is-light">
+                                                            <span class="icon">
+                                                                <i class="fas fa-trash"></i>
+                                                            </span>
+                                                            &nbsp;&nbsp;<%= d.name %>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            <% } %>
+                                        <% }) %>
                                     <% }) %>
-                                <% }) %>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <form action="/users/<%= user._id %>/cleardel?_method=PUT" method="POST" role="form">
+                                    <button type="submit" class="button is-primary">Clear Deletions</button>
+                                </form>
                             </div>
                         <% } %>
                     </div>
@@ -169,7 +191,7 @@
                     <p class="control has-icons-left">
                         <input class="input" type="text" name="avatarURL" placeholder="https://...">
                         <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
+                            <i class="far fa-image"></i>
                         </span>
                     </p>
                 </div>              

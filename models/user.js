@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const db = mongoose.connection;
-
-/*
-For each user, and will embed the comments/reviews they make
-*/
 
 const userSchema = new Schema({
     name: String,
