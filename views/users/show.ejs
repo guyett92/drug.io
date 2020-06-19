@@ -115,6 +115,17 @@
                                 <% }); %>
                             <% } %>
                         </div>
+                        <% if(user._id.equals("5eec72fba7a2f518a095da23")) { %>
+                            <div class="column">
+                                <% user.pendingDel.forEach(function(del, idx) { %>
+                                    <% drugs.forEach(function(d, index) { %>
+                                        <% if(del.equals(d._id)) { %>
+                                            Pending Deletion: <%= d.name %>
+                                        <% } %>
+                                    <% }) %>
+                                <% }) %>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>

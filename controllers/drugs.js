@@ -3,6 +3,7 @@ const User = require('../models/user');
 const moment = require('moment');
 const request = require('request');
 
+
 let showDrug, userQuery;
 let options = {
     method: 'GET',
@@ -36,25 +37,29 @@ module.exports = {
     show,
     addLike,
     removeLike,
-    sort
+    requestDelete
 };
 
-async function sort(req, res) {
+async function requestDelete(req, res) {
+    console.log('yes');
     try {
-        const drugs = await Drug.find({}, null, {sort: {name: 1}});
-        const users = await User.find({});
-        users.save(function(err) {
-            if(err) console.log(error);
-            res.render('drugs/index', { // FIXME: ADD SORT FEATURE
-                drugs,
-                users,
-                user: req.user,
-                title: 'Drug.io | View All', 
-            });
+        admin = await User.findById("5eec72fba7a2f518a095da23"); // FIXME: Add to .env and update when database is purged
+        console.log(admin.name);
+        drug = await Drug.findById(req.params.id);
+        console.log(drug.name);
+        // Add to admin user's pending drug deletions seen in user page
+        admin.pendingDel.push(drug);
+        admin.save(await function(err) {
+            if(err){
+                console.log(err);
+                res.redirect('/drugs');
+            }
+            res.redirect('back');
         })
-    } catch (error) {
+
+    } catch(error) {
         console.log(error);
-        res.redirect('back');
+        res.redirect('/drugs');
     }
 }
 

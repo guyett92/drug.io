@@ -17,19 +17,25 @@
                     <div class="tile is-parent is-vertical">
                         <article class="tile is-child notification has-background-white">
                             <div class="columns is-centered">
-                                <div class="column is-narrow">
-                                    <table class="table is-hoverable">
+                                <div class="column">
+                                    <table class="table is-hoverable drug-table">
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <form class="form" action="/drugs/sort" method="GET" role="form">
-                                                        Name
-                                                        <button id="search-button" type="submit"><span class="icon"><i class="fas fa-sort-down"></i></span></button>
-                                                    </form>
+                                                    Name
+                                                    <button id="search-button"><span class="icon"><i class="fas fa-sort"></i></span></button>
                                                 </th>
-                                                <th>Price</th>
-                                                <th>Family</th>
-                                                <th>Details</th>
+                                                <th class="price">
+                                                    Price
+                                                    <button id="search-button"><span class="icon"><i class="fas fa-sort"></i></span></button>
+                                                </th>
+                                                <th>
+                                                    Family
+                                                    <button id="search-button"><span class="icon"><i class="fas fa-sort"></i></span></button>
+                                                </th>
+                                                <th>
+                                                    Details
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -41,7 +47,7 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <% drugs.forEach(function(d) { %>
+                                            <% drugs.forEach(function(d, idx) { %>
                                                 <tr>
                                                     <td><%= d.name %></td>
                                                     <td>$<%= d.price %></td>
@@ -58,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="tile is-parent is-8">
+            <div class="tile is-parent is-7">
                 <article class="tile is-child notification is-black">
                     <div class="content">
                         <p class="title">A Shared Space</p>

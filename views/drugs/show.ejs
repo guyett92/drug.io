@@ -24,8 +24,8 @@
         <div class="columns">
             <div class="column">
                 <div class="card is-horizontal">
-                    <div class="card-image">
-                        <figure class="image is-square">
+                    <div class="card-image added-image">
+                        <figure class="image is-square show-image">
                             <% if(drug.image) { %>
                                 <img class="userAvatar" src="<%= drug.image %>" alt="Image of <%= drug.name %>">
                             <% } else { %>
@@ -36,15 +36,18 @@
                     <div class="card-stacked">
                         <div class="card-content">
                             <div class="content">
-                                <div class="media-content">
-                                    <p class="title is-4">
+                                <div class="media-content card-target">
+                                    <div class="title is-4">
                                         <%= drug.name %> - 
                                         <% if(drug.generic === true) { %>
                                             <span>Generic</span>
                                         <% } else { %>
                                             <span>Brand Name</span>
                                         <% } %>
-                                    </p>
+                                        <form id="delete-request" action="/drugs/<%= drug._id %>/delete" method="POST" role="form"> 
+                                            <button type="submit" form="delete-request" class="delete show-button"></button>
+                                        </form>
+                                    </div>
                                     <p class="subtitle is-6"><%= drug.family %> - Common Dosage: <%= drug.dosage %>mg
                                         <% if (drug.reviews.length) { %>
                                             <% let count = 0; %>
@@ -85,8 +88,7 @@
                                 <p>A member of the <%= drug.family.toLowerCase() %> family, <%= drug.name %> is commonly priced at $<%= drug.price%>.
                                 Each drug is a member of a drug family that can be found by FIXME: ADD LINKSclicking on the links. There are tooltips available to help
                                 understand where the side effects come from above!
-                                If you would like to know more, <a href="https://en.wikipedia.org/wiki/<%= drug.name %>">click here</a>.</p>
-                                
+                                If you would like to know more, <a href="https://en.wikipedia.org/wiki/<%= drug.name %>">click here</a>.</p>                                
                             </div>
                                 <% if(user) { %>
                                 <div class="liked-container">

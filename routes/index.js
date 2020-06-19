@@ -19,7 +19,7 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
     'google',
     {   //Should return user to current page or home
-        successRedirect: 'back',
+        successRedirect: '/',
         failureRedirect: 'back',
         failureFlash: true
     }

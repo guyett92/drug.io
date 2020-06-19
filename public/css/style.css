@@ -40,6 +40,10 @@ footer {
   cursor: pointer;
 }
 
+.show-button {
+  float: right;
+}
+
 .modal-content {
   overflow: hidden !important;
 }
@@ -120,6 +124,10 @@ footer {
 }
 .card.is-fullimage .card-image .card-stacked a:hover {
   text-decoration: underline;
+}
+
+.media-content {
+  overflow: hidden !important;
 }
 
 .drug-title {

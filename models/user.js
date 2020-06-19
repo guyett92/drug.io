@@ -15,6 +15,11 @@ const userSchema = new Schema({
         type: Array,
         default: []
     },
+    pendingDel: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Drug',
+        default: []
+    }],
     bio: String
 }, { timestamps: true });
 

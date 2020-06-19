@@ -3,7 +3,7 @@ A simple space to share opinions and side effects experienced when on a prescrip
 ## Features
 Users can login with their Google account and post reviews on current drugs on the portal. Users can also add and like reviews as well as post their own. Users can share their
 experiences with others. The application pulls data from multiple APIs to make adding a new drug easier. When a new drug is added, the data is formatted and presented to the user
-using ejs template tags. The image that is used is found by using a SERP to find the best result. There's a lot of interactivity so please explore!
+using ejs template tags. The image that is used is found by using a SERP to find the best result. The drug can only be added if it is in the drug ingredients API. The forms have data validation, there's regex all over the place, and there are tons and tons of buttons. There's a lot of interactivity so please explore!
 ## Technologies Used
 * Node
 * Express
@@ -12,7 +12,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * CSS: Bulma
 * JavaScript
 * jQuery
-* Node Packages: moment, CSS-tooltip, morgan, passport, serve-favicon, method-override, mongoose, dotenv, request, ejs, nodemailer, find-config
+* Node Packages: moment, CSS-tooltip, morgan, passport, serve-favicon, method-override, mongoose, dotenv, request, ejs, nodemailer, find-config, bulma-toasts
 ## APIs Integrated
 * Drug Images: [ZenSERP](https://zenserp.com/)
 * Drug Ingredients: [MAPI](http://mapi-us.iterar.co/)
@@ -39,11 +39,11 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * ~~Users can view a profile screen where all their favorites are listed.~~
 * ~~Users can update their profile to add a bio or an image if one is not already added.~~
 * ~~Users can search for a drug.~~
-* Users can order the table of drugs by different categories.
+* ~~Users can order the table of drugs by different categories.~~
 * Users can view the description of a drug pulled from an API.
 * Users can subscribe to get updates about a drug or a review.
 * Users can message others.
 * ~~Users can leave feedback.~~
 * ~~Users can view the top comment.~~
-* Users can request to delete a drug.
+* ~~Users can request to delete a drug and an admin can approve it.~~ Nearly there!
 * Error handling...

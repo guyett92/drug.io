@@ -2,6 +2,8 @@
 
 /*----- app's state (variables) -----*/
 let dangerCount = 1;
+let showImageContainer;
+let adjustCount = 1;
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
@@ -17,8 +19,40 @@ $('input').on('invalid', addDanger);
 $('input').on('keyup', removeDanger);
 $('#clear-fields').on('click', clearFields);
 $('form').on('submit', formSuccess);
+window.onload = function () {makeAllSortable();};
 
 /*----- functions -----*/
+function sortTable(table, col, reverse) {
+    var tb = table.tBodies[0], // Ignore head and foot
+        tr = Array.prototype.slice.call(tb.rows, 0), // Put rows into array
+        i;
+    reverse = -((+reverse) || -1);
+    tr = tr.sort(function (a, b) { // Sort rows
+        return reverse // -1 * for opposite order
+            * (a.cells[col].textContent.trim() // Using for test
+                .localeCompare(b.cells[col].textContent.trim())
+               );
+    });
+    for(i = 0; i < tr.length; ++i) tb.appendChild(tr[i]); // Append each row in order
+}
+
+function makeSortable(table) {
+    var th = table.tHead, i;
+    th && (th = th.rows[0]) && (th = th.cells);
+    if (th) i = th.length;
+    else return; // If no thead, then do nothing 
+    while (--i >= 0) (function (i) {
+        var dir = 1;
+        th[i].addEventListener('click', function () {sortTable(table, i, (dir = 1 - dir))});
+    }(i));
+}
+
+function makeAllSortable(parent) {
+    parent = parent || document.body;
+    var t = parent.getElementsByTagName('table'), i = t.length;
+    while (--i >= 0) makeSortable(t[i]);
+}
+
 function formSuccess(e) {
     bulmaToast.toast({
         message: 'Successful Submission',
@@ -78,10 +112,19 @@ function fixedNav(e) {
     if($(window).width() <= 768) {
         $('#nav-target').addClass('is-fixed-top');
         $('.hero').css("margin-top","5rem");
+        if (adjustCount > 0) {
+        showImageContainer = $('.show-image').detach();
+        adjustCount -= 1;
+        } else {
+            $('.show-image').remove();
+        }
+        $('.card-target').append(showImageContainer);
     }
     if($(window).width() > 768) {
         $('#nav-target').removeClass('is-fixed-top');
         $('.hero').css("margin-top","0px");
+        $('.show-image').remove()
+        $('.added-image').append(showImageContainer);
     }
 }
 // Function to add a fixed nav on load or assign active to the user page
@@ -89,13 +132,22 @@ $(function() {
     if($(window).width() <= 768) {
         $('#nav-target').addClass('is-fixed-top');
         $('.hero').css("margin-top","5rem");
+        if (adjustCount > 0) {
+        showImageContainer = $('.show-image').detach();
+        adjustCount -= 1;
+        } else {
+            $('.show-image').remove();
+        }
+        $('.card-target').append(showImageContainer);
     }
     if (document.URL.includes('users')) {
          $('#userPage').addClass('active');
     }
 });
 
-//How do I use this here rather than in my partial?
-function isVowel(letter) {
-    return ['a', 'e', 'i', 'o', 'u', 'y'].indexOf(letter.toLowerCase()) !== -1
-}
+// $(document).ready( function () {
+//     $('.drug-table').DataTable();
+//     $('input[type=search]').addClass('input');
+//     $('label').addClass('label');
+//     $('select').addClass('select');
+// } );
