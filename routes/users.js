@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const usersCtrl = require('../controllers/users.js');
 
 router.get('/:id', usersCtrl.show);
