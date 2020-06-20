@@ -1,5 +1,5 @@
 # Drug.io v. 1.0
-A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.\  
+A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.\
 [Drug.io](https://drugs-review.herokuapp.com/) 
 ## Features
 Users can login with their Google account and post reviews on current drugs on the portal. Users can also add and like reviews as well as post their own. Users can share their
@@ -9,7 +9,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 ![Admin Panel](/resources/admin.JPG)
 ![Drug Card](/resources/drug.JPG)
 ## Getting Started
-`Logon to [Drug.io](https://drugs-review.herokuapp.com/)`\  
+`Logon to [Drug.io](https://drugs-review.herokuapp.com/)`\
 `Login with Google`\
 `Enjoy!`
 ## Technologies Used
