@@ -1,6 +1,6 @@
 # Drug.io v. 1.0
-A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.\
-[Drug.io](https://drugs-review.herokuapp.com/) 
+* A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.\
+* [Drug.io](https://drugs-review.herokuapp.com/) 
 ## Features
 Users can login with their Google account and post reviews on current drugs on the portal. Users can also add and like reviews as well as post their own. Users can share their
 experiences with others. The application pulls data from multiple APIs to make adding a new drug easier. When a new drug is added, the data is formatted and presented to the user
