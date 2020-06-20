@@ -1,10 +1,15 @@
 # Drug.io v. 1.0
-A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.  \
-[Drug.io](https://drugs-review.herokuapp.com/)
+A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.\  [Drug.io](https://drugs-review.herokuapp.com/) 
+![Admin Panel](/resources/admin.JPG)
+![Drug Card](/resources/drug.JPG)
 ## Features
 Users can login with their Google account and post reviews on current drugs on the portal. Users can also add and like reviews as well as post their own. Users can share their
 experiences with others. The application pulls data from multiple APIs to make adding a new drug easier. When a new drug is added, the data is formatted and presented to the user
 using ejs template tags. The image that is used is found by using a SERP to find the best result. The drug can only be added if it is in the drug ingredients API. The forms have data validation, there's regex all over the place, and there are tons and tons of buttons. There's a lot of interactivity so please explore!
+## Getting Started
+Logon to [Drug.io](https://drugs-review.herokuapp.com/)  \  
+`Login with Google`
+Enjoy!
 ## Technologies Used
 * Node
 * Express

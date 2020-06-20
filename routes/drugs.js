@@ -18,6 +18,14 @@ router.get('/auth/google', passport.authenticate(
     { scope: ['profile', 'email']}
 ));
 
+router.get('/oauth2callback', passport.authenticate(
+    'google',
+    {   //Should return user to current page or home
+        successRedirect: 'back',
+        failureRedirect: '/'
+    }
+));
+
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('back');
