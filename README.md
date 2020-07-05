@@ -1,4 +1,4 @@
-# Drug.io v. 1.0
+# Drug.io v. 1.1
 * A simple space to share opinions and side effects experienced when on a prescription or over-the-counter medication.\
 * [Drug.io](https://drugs-review.herokuapp.com/) 
 ## Features
@@ -20,7 +20,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * CSS: Bulma
 * JavaScript
 * jQuery
-* Node Packages: moment, CSS-tooltip, morgan, passport, serve-favicon, method-override, mongoose, dotenv, request, ejs, nodemailer, find-config, bulma-toasts
+* Node Packages: moment, CSS-tooltip, morgan, passport, serve-favicon, method-override, mongoose, dotenv, request, ejs, nodemailer, find-config, bulma-toasts, bad-words
 ## APIs Integrated
 * Drug Images: [ZenSERP](https://zenserp.com/)
 * Drug Ingredients: [MAPI](http://mapi-us.iterar.co/)
@@ -57,6 +57,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * ~~Users can leave feedback.~~
 * ~~Users can view the top comment.~~
 * ~~Users can request to delete a drug and an admin can approve it.~~ 
+* ~~Users cannot use swears in reviews.~~
 * Convert all functions to async await.
 * Error handling, dotenv...
 ## Some Stats - v.1.0

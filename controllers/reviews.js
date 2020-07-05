@@ -1,5 +1,6 @@
 const Drug = require('../models/drug');
 const User = require('../models/user');
+const Filter = require('bad-words');
 
 module.exports = {
     create,
@@ -14,7 +15,7 @@ async function removeLike(req, res) {
         const reviewSubdoc = await drug.reviews.id(req.params.id);
         req.user.liked.forEach(function(l, i) {
             if(l === drug.name) {
-                liked.splice(i, 1);
+                req.user.liked.splice(i, 1);
             }
         })
         for(let i = 0; i < reviewSubdoc.likes.length; i++) {
@@ -76,6 +77,9 @@ async function delReview(req, res) {
 async function create(req, res) {
     try {
         const drug = await Drug.findById(req.params.id);
+        // Filter the language of the review
+        filter = new Filter();
+        req.body.content = filter.clean(req.body.content);
         // Point to the user who made the review
         req.body.postedBy = req.user._id; 
         // Convert  side effects checkbox to boolean

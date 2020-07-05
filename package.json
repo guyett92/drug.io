@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@creativebulma/bulma-tooltip": "^1.2.0",
+    "bad-words": "^3.0.3",
     "bulma": "^0.8.2",
     "bulma-extensions": "^6.2.7",
     "bulma-toast": "^2.0.1",
