@@ -12,8 +12,23 @@ module.exports = {
     report,
     submitReport,
     submitContact,
-    search
+    search,
+    code
 };
+
+async function code(req, res) {
+    try {
+        const users = await User.find({});
+        res.render('code', {
+            users,
+            user: req.user,
+            title: 'Drug.io | Code of Ethics'}
+        );
+    } catch(error) {
+        console.log(error);
+        res.redirect('back');
+    }
+}
 
 async function search(req, res) {
     try {
@@ -42,8 +57,8 @@ async function submitContact(req, res) {
             }
           });
 
-        const mailOpts = await {
-            from: '', // Gmail ignores this
+        const mailOpts = {
+            from: '',
             to: 'aaronguyett@yahoo.com',
             subject: req.body.subject + ' from Drugs.io',
             text: `${req.body.name} (${req.body.email}) says ${req.body.message}`
@@ -74,17 +89,11 @@ async function submitReport(req, res) {
             }
           });
 
-        const mailOpts = await {
-            from: '', // Gmail ignores this
+        const mailOpts = {
+            from: '',
             to: 'aaronguyett@yahoo.com',
             subject: req.body.category + ': Issue from drugs.io',
             text: `${req.body.name} (${req.body.email}) says ${req.body.message}`,
-            // attachments: [
-            //     {
-            //         filename: req.body.image,
-            //         content: new Buffer.from(req.body.image.split("base64,")[1], "base64") //FIXME: Add upload image
-            //     }
-            // ]
         }
 
         transport.sendMail(mailOpts, (error, response) => {
@@ -104,7 +113,7 @@ async function submitReport(req, res) {
 async function report(req, res) {
     try {
         const users = User.find({});
-        res.render(await 'report', {
+        res.render('report', {
             users,
             user: req.user,
             title: 'Drug.io | Report'}
@@ -118,7 +127,7 @@ async function report(req, res) {
 async function contact(req, res) {
     try {
         const users = User.find({});
-        res.render(await 'contact', {
+        res.render('contact', {
             users,
             user: req.user,
             title: 'Drug.io | Contact'}
@@ -132,7 +141,7 @@ async function contact(req, res) {
 async function about(req, res) {
     try {
         const users = User.find({});
-        res.render(await 'about', {
+        res.render('about', {
             users,
             user: req.user,
             title: 'Drug.io | About'}

@@ -60,12 +60,3 @@ using ejs template tags. The image that is used is found by using a SERP to find
 * ~~Users cannot use swears in reviews.~~
 * Convert all functions to async await.
 * Error handling, dotenv...
-## Some Stats - v.1.0
-* Started: June 3, 2020
-* Initial Release: June 19, 2020
-* Hours Worked: ~47
-* Lines of Code: 2386
-* 149 lines of code written a day
-* Coding 3 hours a day
-* Errors Found: 411
-* Errors Remediated: Secret :)
