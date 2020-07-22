@@ -80,6 +80,7 @@ async function submitContact(req, res) {
 
 async function submitReport(req, res) {
     try {
+        console.log(req.body);
         let transport = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
@@ -96,8 +97,8 @@ async function submitReport(req, res) {
             text: `${req.body.name} (${req.body.email}) says ${req.body.message}`,
         }
 
+
         transport.sendMail(mailOpts, (error, response) => {
-            console.log('done')
             if(error) {
                 res.redirect('back') //FIXME: Contact-failure
             } else {
