@@ -9,7 +9,7 @@ using ejs template tags. The image that is used is found by using a SERP to find
 ![Admin Panel](/resources/admin.JPG)
 ![Drug Card](/resources/drug.JPG)
 ## Getting Started
-`Logon to [Drug.io](https://drugs-review.herokuapp.com/)`\
+`Logon to ` [Drug.io](https://drugs-review.herokuapp.com/)\
 `Login with Google`\
 `Enjoy!`
 ## Technologies Used
